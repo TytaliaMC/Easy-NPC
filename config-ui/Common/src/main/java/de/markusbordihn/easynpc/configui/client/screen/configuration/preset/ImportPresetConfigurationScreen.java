@@ -19,7 +19,6 @@
 
 package de.markusbordihn.easynpc.configui.client.screen.configuration.preset;
 
-import de.markusbordihn.easynpc.client.screen.Screen;
 import de.markusbordihn.easynpc.client.screen.components.Text;
 import de.markusbordihn.easynpc.client.screen.components.TextButton;
 import de.markusbordihn.easynpc.configui.Constants;
@@ -29,11 +28,7 @@ import de.markusbordihn.easynpc.configui.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.data.configuration.ConfigurationType;
 import de.markusbordihn.easynpc.data.skin.SkinModel;
 import de.markusbordihn.easynpc.debug.Logger;
-import de.markusbordihn.easynpc.menu.configuration.ConfigurationMenu;
-import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.network.components.TextComponent;
-import java.util.List;
-import java.util.Locale;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -43,6 +38,9 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+
+import java.util.List;
+import java.util.Locale;
 
 public class ImportPresetConfigurationScreen<T extends ConfigurationMenu>
     extends ConfigurationScreen<T> {

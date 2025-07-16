@@ -23,6 +23,7 @@ import de.markusbordihn.easynpc.configui.Constants;
 import de.markusbordihn.easynpc.data.model.ModelPartType;
 import de.markusbordihn.easynpc.data.model.ModelPose;
 import de.markusbordihn.easynpc.data.scale.CustomScale;
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import de.markusbordihn.easynpc.entity.easynpc.data.ModelDataCapable;
 import de.markusbordihn.easynpc.network.message.NetworkMessageRecord;
@@ -68,25 +69,25 @@ public record ChangeModelScaleMessage(UUID uuid, ModelPartType modelPartType, Cu
 
     // Validate ModelPart.
     if (this.modelPartType == null) {
-      log.error("Invalid modelPartType for {} from {}", easyNPC, serverPlayer);
+      Logger.INSTANCE.error("Invalid modelPartType for {} from {}", easyNPC, serverPlayer);
       return;
     }
 
     // Validate Positions.
     if (this.scale == null) {
-      log.error("Invalid scale for {} from {}", easyNPC, serverPlayer);
+      Logger.INSTANCE.error("Invalid scale for {} from {}", easyNPC, serverPlayer);
       return;
     }
 
     // Validate Model data.
     ModelDataCapable<?> modelData = easyNPC.getEasyNPCModelData();
     if (modelData == null) {
-      log.error("Invalid model data for {} from {}", easyNPC, serverPlayer);
+      Logger.INSTANCE.error("Invalid model data for {} from {}", easyNPC, serverPlayer);
       return;
     }
 
     // Perform action.
-    log.debug(
+    Logger.INSTANCE.debug(
         "Change {} scale to {}° for {} from {}", modelPartType, this.scale, easyNPC, serverPlayer);
 
     // Set common properties for all cases except ROOT.
@@ -100,7 +101,7 @@ public record ChangeModelScaleMessage(UUID uuid, ModelPartType modelPartType, Cu
 
     // Verify if custom model pose is really needed.
     if (!modelData.hasChangedModel()) {
-      log.debug("Reset custom model pose for {} from {}", easyNPC, serverPlayer);
+      Logger.INSTANCE.debug("Reset custom model pose for {} from {}", easyNPC, serverPlayer);
       modelData.setModelPose(ModelPose.DEFAULT);
     }
   }

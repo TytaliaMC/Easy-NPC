@@ -19,23 +19,10 @@
 
 package de.markusbordihn.easynpc.configui.client.screen.editor.action;
 
-import de.markusbordihn.easynpc.client.screen.components.ActionButton;
-import de.markusbordihn.easynpc.client.screen.components.ActionsButton;
-import de.markusbordihn.easynpc.client.screen.components.CancelButton;
-import de.markusbordihn.easynpc.client.screen.components.DeleteButton;
-import de.markusbordihn.easynpc.client.screen.components.SaveButton;
-import de.markusbordihn.easynpc.client.screen.components.SpinButton;
-import de.markusbordihn.easynpc.client.screen.components.Text;
-import de.markusbordihn.easynpc.client.screen.components.TextButton;
+import de.markusbordihn.easynpc.client.screen.components.*;
 import de.markusbordihn.easynpc.configui.Constants;
 import de.markusbordihn.easynpc.configui.client.screen.EditorScreen;
-import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.ActionEntryWidget;
-import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.CloseDialogEntry;
-import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.CommandActionEntry;
-import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.InteractBlockEntry;
-import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.OpenDefaultDialogEntry;
-import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.OpenNamedDialogEntry;
-import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.OpenTradingScreenEntry;
+import de.markusbordihn.easynpc.configui.client.screen.editor.action.entry.*;
 import de.markusbordihn.easynpc.configui.menu.editor.EditorMenu;
 import de.markusbordihn.easynpc.configui.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.data.action.ActionDataEntry;
@@ -45,15 +32,7 @@ import de.markusbordihn.easynpc.data.action.ActionEventType;
 import de.markusbordihn.easynpc.data.configuration.ConfigurationType;
 import de.markusbordihn.easynpc.data.editor.EditorType;
 import de.markusbordihn.easynpc.debug.Logger;
-import de.markusbordihn.easynpc.menu.editor.EditorMenu;
-import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.network.components.TextComponent;
-
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -64,6 +43,11 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ActionDataEntryEditorContainerScreen<T extends EditorMenu> extends EditorScreen<T> {
 

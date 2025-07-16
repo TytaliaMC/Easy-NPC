@@ -19,18 +19,7 @@
 
 package de.markusbordihn.easynpc.configui.client.screen.editor.dialog;
 
-import de.markusbordihn.easynpc.client.screen.components.AddButton;
-import de.markusbordihn.easynpc.client.screen.components.CancelButton;
-import de.markusbordihn.easynpc.client.screen.components.Checkbox;
-import de.markusbordihn.easynpc.client.screen.components.DeleteButton;
-import de.markusbordihn.easynpc.client.screen.components.DialogButton;
-import de.markusbordihn.easynpc.client.screen.components.DialogButtonButton;
-import de.markusbordihn.easynpc.client.screen.components.SaveButton;
-import de.markusbordihn.easynpc.client.screen.components.SpriteButton;
-import de.markusbordihn.easynpc.client.screen.components.Text;
-import de.markusbordihn.easynpc.client.screen.components.TextButton;
-import de.markusbordihn.easynpc.client.screen.components.TextEditButton;
-import de.markusbordihn.easynpc.client.screen.components.TextField;
+import de.markusbordihn.easynpc.client.screen.components.*;
 import de.markusbordihn.easynpc.configui.Constants;
 import de.markusbordihn.easynpc.configui.client.screen.EditorScreen;
 import de.markusbordihn.easynpc.configui.menu.editor.EditorMenu;
@@ -41,10 +30,7 @@ import de.markusbordihn.easynpc.data.dialog.DialogDataEntry;
 import de.markusbordihn.easynpc.data.dialog.DialogDataSet;
 import de.markusbordihn.easynpc.data.dialog.DialogUtils;
 import de.markusbordihn.easynpc.debug.Logger;
-import de.markusbordihn.easynpc.menu.editor.EditorMenu;
-import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.network.components.TextComponent;
-import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -52,6 +38,8 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+
+import java.util.Set;
 
 public class DialogEditorScreen<T extends EditorMenu> extends EditorScreen<T> {
 

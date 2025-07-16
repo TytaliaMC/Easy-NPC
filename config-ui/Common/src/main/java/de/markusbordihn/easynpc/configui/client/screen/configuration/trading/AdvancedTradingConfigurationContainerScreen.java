@@ -19,11 +19,7 @@
 
 package de.markusbordihn.easynpc.configui.client.screen.configuration.trading;
 
-import de.markusbordihn.easynpc.client.screen.components.Graphics;
-import de.markusbordihn.easynpc.client.screen.components.PositiveNumberField;
-import de.markusbordihn.easynpc.client.screen.components.Text;
-import de.markusbordihn.easynpc.client.screen.components.TextButton;
-import de.markusbordihn.easynpc.client.screen.components.TextField;
+import de.markusbordihn.easynpc.client.screen.components.*;
 import de.markusbordihn.easynpc.configui.Constants;
 import de.markusbordihn.easynpc.configui.menu.configuration.ConfigurationMenu;
 import de.markusbordihn.easynpc.configui.menu.configuration.trading.AdvancedTradingConfigurationMenu;
@@ -33,12 +29,7 @@ import de.markusbordihn.easynpc.data.trading.TradingDataSet;
 import de.markusbordihn.easynpc.data.trading.TradingSettings;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.data.TradingDataCapable;
-import de.markusbordihn.easynpc.menu.configuration.ConfigurationMenu;
-import de.markusbordihn.easynpc.menu.configuration.trading.AdvancedTradingConfigurationMenu;
-import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.utils.ValueUtils;
-import java.util.HashMap;
-import java.util.Objects;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -47,6 +38,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
+
+import java.util.HashMap;
+import java.util.Objects;
 
 public class AdvancedTradingConfigurationContainerScreen<T extends ConfigurationMenu>
     extends TradingConfigurationContainerScreen<T> {

@@ -23,12 +23,14 @@ import de.markusbordihn.easynpc.configui.Constants;
 import de.markusbordihn.easynpc.configui.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.data.dialog.DialogDataManager;
 import de.markusbordihn.easynpc.data.screen.AdditionalScreenData;
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.menu.ClientMenuManager;
 import de.markusbordihn.easynpc.network.message.NetworkMessageRecord;
-import java.util.UUID;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+
+import java.util.UUID;
 
 public record OpenMenuCallbackMessage(UUID uuid, UUID menuId, CompoundTag data)
     implements NetworkMessageRecord {
@@ -60,7 +62,7 @@ public record OpenMenuCallbackMessage(UUID uuid, UUID menuId, CompoundTag data)
 
     // Validate menu data
     if (uuid == null || menuId == null || data == null) {
-      log.error(
+      Logger.INSTANCE.error(
           "Invalid menu data received for {} with menuId {} and data: {}", uuid, menuId, data);
       return;
     }

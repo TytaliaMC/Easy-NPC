@@ -32,9 +32,6 @@ import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.network.ServerNetworkMessageHandler;
 import de.markusbordihn.easynpc.tabs.ModTabs;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class EasyNPCClient implements ClientModInitializer {
 
@@ -63,7 +60,7 @@ public class EasyNPCClient implements ClientModInitializer {
     Logger.INSTANCE.info("{} Client Screens ...", Constants.LOG_REGISTER_PREFIX);
     ClientScreens.registerScreens();
 
-    log.info("{} Client Event Handler ...", Constants.LOG_REGISTER_PREFIX);
+    Logger.INSTANCE.info("{} Client Event Handler ...", Constants.LOG_REGISTER_PREFIX);
     ClientEventHandler.registerClientEvents();
   }
 }

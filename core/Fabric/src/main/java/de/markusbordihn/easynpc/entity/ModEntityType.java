@@ -23,16 +23,15 @@ import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.compat.CompatConstants;
 import de.markusbordihn.easynpc.compat.epicfight.entity.EpicFightZombie;
 import de.markusbordihn.easynpc.debug.Logger;
-import java.util.EnumMap;
-import java.util.Map;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class ModEntityType {
 
@@ -42,7 +41,6 @@ public class ModEntityType {
       new EnumMap<>(ModNPCEntityType.class);
   public static final Map<ModCustomEntityType, EntityType<?>> CUSTOM_TYPE =
       new EnumMap<>(ModCustomEntityType.class);
-  private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
   // Optional: Epic Fight entities
   public static EntityType<EpicFightZombie> EPIC_FIGHT_ZOMBIE;
@@ -50,7 +48,7 @@ public class ModEntityType {
   static {
     // Raw entities (for modding only)
     for (ModRawEntityType type : ModRawEntityType.values()) {
-      log.info("Registering raw entity type {}", type.getResourceKey());
+      Logger.INSTANCE.info("Registering raw entity type {}", type.getResourceKey());
       RAW_TYPE.put(
           type,
           Registry.register(
@@ -61,7 +59,7 @@ public class ModEntityType {
 
     // Pre-defined NPCs
     for (ModNPCEntityType type : ModNPCEntityType.values()) {
-      log.info("Registering NPC entity type {}", type.getResourceKey());
+      Logger.INSTANCE.info("Registering NPC entity type {}", type.getResourceKey());
       NPC_TYPE.put(
           type,
           Registry.register(
@@ -72,7 +70,7 @@ public class ModEntityType {
 
     // Custom NPCs
     for (ModCustomEntityType type : ModCustomEntityType.values()) {
-      log.info("Registering custom entity type {}", type.getResourceKey());
+      Logger.INSTANCE.info("Registering custom entity type {}", type.getResourceKey());
       CUSTOM_TYPE.put(
           type,
           Registry.register(
@@ -117,7 +115,7 @@ public class ModEntityType {
   }
 
   public static void registerEntitiesAttributes() {
-    log.info("{} Registering Entities Attributes ...", Constants.LOG_REGISTER_PREFIX);
+    Logger.INSTANCE.info("{} Registering Entities Attributes ...", Constants.LOG_REGISTER_PREFIX);
 
     // Raw entities (for modding only)
     for (ModRawEntityType type : ModRawEntityType.values()) {
@@ -125,7 +123,7 @@ public class ModEntityType {
         FabricDefaultAttributeRegistry.register(
             (EntityType<? extends LivingEntity>) RAW_TYPE.get(type), type.getAttributes().build());
       } else {
-        log.warn("Raw entity type {} does not have attributes defined!", type.getResourceKey());
+        Logger.INSTANCE.warn("Raw entity type {} does not have attributes defined!", type.getResourceKey());
       }
     }
 
@@ -135,7 +133,7 @@ public class ModEntityType {
         FabricDefaultAttributeRegistry.register(
             (EntityType<? extends LivingEntity>) NPC_TYPE.get(type), type.getAttributes().build());
       } else {
-        log.warn("NPC entity type {} does not have attributes defined!", type.getResourceKey());
+        Logger.INSTANCE.warn("NPC entity type {} does not have attributes defined!", type.getResourceKey());
       }
     }
 
@@ -146,7 +144,7 @@ public class ModEntityType {
             (EntityType<? extends LivingEntity>) CUSTOM_TYPE.get(type),
             type.getAttributes().build());
       } else {
-        log.warn("Custom entity type {} does not have attributes defined!", type.getResourceKey());
+        Logger.INSTANCE.warn("Custom entity type {} does not have attributes defined!", type.getResourceKey());
       }
     }
 

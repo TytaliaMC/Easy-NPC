@@ -24,7 +24,6 @@ import de.markusbordihn.easynpc.configui.menu.MenuManager;
 import de.markusbordihn.easynpc.data.action.ActionEventType;
 import de.markusbordihn.easynpc.data.configuration.ConfigurationType;
 import de.markusbordihn.easynpc.data.editor.EditorType;
-import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import de.markusbordihn.easynpc.network.message.NetworkMessageRecord;
 import java.util.UUID;
@@ -33,25 +32,25 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
 public record OpenActionDataEditorMessage(
-    UUID uuid,
-    UUID dialogId,
-    UUID dialogButtonId,
-    ActionEventType actionEventType,
-    ConfigurationType configurationType,
-    EditorType editorType)
-    implements NetworkMessageRecord {
+        UUID uuid,
+        UUID dialogId,
+        UUID dialogButtonId,
+        ActionEventType actionEventType,
+        ConfigurationType configurationType,
+        EditorType editorType)
+        implements NetworkMessageRecord {
 
   public static final ResourceLocation MESSAGE_ID =
-      new ResourceLocation(Constants.MOD_ID, "open_action_data_editor");
+          new ResourceLocation(Constants.MOD_ID, "open_action_data_editor");
 
   public static OpenActionDataEditorMessage create(final FriendlyByteBuf buffer) {
     return new OpenActionDataEditorMessage(
-        buffer.readUUID(),
-        buffer.readUUID(),
-        buffer.readUUID(),
-        buffer.readEnum(ActionEventType.class),
-        buffer.readEnum(ConfigurationType.class),
-        buffer.readEnum(EditorType.class));
+            buffer.readUUID(),
+            buffer.readUUID(),
+            buffer.readUUID(),
+            buffer.readEnum(ActionEventType.class),
+            buffer.readEnum(ConfigurationType.class),
+            buffer.readEnum(EditorType.class));
   }
 
   @Override
@@ -76,27 +75,18 @@ public record OpenActionDataEditorMessage(
       return;
     }
 
-    // Validate scale axis.
-    if (this.scaleAxis == null) {
-      log.error("Invalid scale axis request for {} from {}", easyNPC, serverPlayer);
-      return;
-    }
-
-    // Validate scale.
-    if (this.scaleValue == null || this.scaleValue < 0.1f || this.scaleValue > 10.0f) {
-      log.error(
-          "Invalid scale {} request for UUID {} from {}", this.scaleValue, easyNPC, serverPlayer);
-      return;
-    }
-
-    // Validate scale data.
-    ScaleData<?> scaleData = easyNPC.getEasyNPCScaleData();
-    if (scaleData == null) {
-      log.error("Invalid scale data for {} from {}", easyNPC, serverPlayer);
-      return;
-    }
-
-    // Perform action.
-    scaleData.setModelScaleAxis(this.scaleAxis, this.scaleValue);
+    // Open action data editor
+    MenuManager.getMenuHandler()
+            .openEditorMenu(
+                    EditorType.ACTION_DATA,
+                    serverPlayer,
+                    easyNPC,
+                    this.dialogId,
+                    this.dialogButtonId,
+                    null,
+                    this.actionEventType,
+                    this.configurationType,
+                    this.editorType,
+                    0);
   }
 }

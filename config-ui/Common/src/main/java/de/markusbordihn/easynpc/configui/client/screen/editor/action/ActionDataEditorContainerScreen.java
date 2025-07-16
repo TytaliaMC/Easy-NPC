@@ -19,11 +19,7 @@
 
 package de.markusbordihn.easynpc.configui.client.screen.editor.action;
 
-import de.markusbordihn.easynpc.client.screen.components.ActionsButton;
-import de.markusbordihn.easynpc.client.screen.components.AddButton;
-import de.markusbordihn.easynpc.client.screen.components.DialogButtonButton;
-import de.markusbordihn.easynpc.client.screen.components.Text;
-import de.markusbordihn.easynpc.client.screen.components.TextButton;
+import de.markusbordihn.easynpc.client.screen.components.*;
 import de.markusbordihn.easynpc.configui.Constants;
 import de.markusbordihn.easynpc.configui.menu.editor.EditorMenu;
 import de.markusbordihn.easynpc.configui.network.NetworkMessageHandlerManager;
@@ -33,8 +29,6 @@ import de.markusbordihn.easynpc.data.action.ActionEventType;
 import de.markusbordihn.easynpc.data.configuration.ConfigurationType;
 import de.markusbordihn.easynpc.data.editor.EditorType;
 import de.markusbordihn.easynpc.debug.Logger;
-import de.markusbordihn.easynpc.menu.editor.EditorMenu;
-import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
 import de.markusbordihn.easynpc.network.components.TextComponent;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

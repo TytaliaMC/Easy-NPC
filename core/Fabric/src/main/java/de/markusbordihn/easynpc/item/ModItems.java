@@ -22,6 +22,7 @@ package de.markusbordihn.easynpc.item;
 import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.block.ModBlocks;
 import de.markusbordihn.easynpc.data.spawner.SpawnerType;
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.ModCustomEntityType;
 import de.markusbordihn.easynpc.entity.ModEntityType;
 import de.markusbordihn.easynpc.entity.ModNPCEntityType;
@@ -61,18 +62,17 @@ public class ModItems {
       new EasyNPCSpawnerBlockItem(
           ModBlocks.EASY_NPC_SPAWNER_SINGLE, new Item.Properties(), SpawnerType.SINGLE_SPAWNER);
   public static final Item MOVE_EASY_NPC = new MoveEasyNPCItem(new Item.Properties());
-  private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
   private ModItems() {}
 
   public static void registerModItems() {
 
-    log.info("{} Configuration Items ...", Constants.LOG_REGISTER_PREFIX);
+    Logger.INSTANCE.info("{} Configuration Items ...", Constants.LOG_REGISTER_PREFIX);
     registerItem(MoveEasyNPCItem.ID, MOVE_EASY_NPC);
     registerItem(EasyNPCPresetItem.NAME, EASY_NPC_PRESET_ITEM);
     registerItem(EasyNPCPresetEmptyItem.NAME, EASY_NPC_PRESET_EMPTY_ITEM);
 
-    log.info("{} Block Items ...", Constants.LOG_REGISTER_PREFIX);
+    Logger.INSTANCE.info("{} Block Items ...", Constants.LOG_REGISTER_PREFIX);
     registerItem(SpawnerType.BOSS_SPAWNER.getId(), EASY_NPC_SPAWNER_BOSS);
     registerItem(SpawnerType.DEFAULT_SPAWNER.getId(), EASY_NPC_SPAWNER_DEFAULT);
     registerItem(SpawnerType.GROUP_SPAWNER.getId(), EASY_NPC_SPAWNER_GROUP);
@@ -81,16 +81,16 @@ public class ModItems {
     de.markusbordihn.easynpc.debug.Logger.INSTANCE.info("{} Weapon Items ...", Constants.LOG_REGISTER_PREFIX);
     registerItem(BulletItem.ID, BULLET_ITEM);
 
-    log.info("{} Spawn Egg Items ...", Constants.LOG_REGISTER_PREFIX);
+    Logger.INSTANCE.info("{} Spawn Egg Items ...", Constants.LOG_REGISTER_PREFIX);
 
     // Register spawn eggs for all NPC entity types.
     for (ModNPCEntityType entityType : ModNPCEntityType.values()) {
       EntityType<?> entityTypeObject = ModEntityType.NPC_TYPE.get(entityType);
       if (entityTypeObject == null) {
-        log.error("Unable to register NPC spawn egg with id {}.", entityType.getId());
+        Logger.INSTANCE.error("Unable to register NPC spawn egg with id {}.", entityType.getId());
         continue;
       }
-      log.info(
+      Logger.INSTANCE.info(
           "Registering NPC spawn egg for {} with id {}.", entityTypeObject, entityType.getId());
       NPC_SPAWN_EGGS.put(entityType, registerSpawnEgg(entityType.getId(), entityTypeObject));
     }
@@ -99,10 +99,10 @@ public class ModItems {
     for (ModCustomEntityType entityType : ModCustomEntityType.values()) {
       EntityType<?> entityTypeObject = ModEntityType.CUSTOM_TYPE.get(entityType);
       if (entityTypeObject == null) {
-        log.error("Unable to register custom spawn egg with id {}.", entityType.getId());
+        Logger.INSTANCE.error("Unable to register custom spawn egg with id {}.", entityType.getId());
         continue;
       }
-      log.info(
+      Logger.INSTANCE.info(
           "Registering custom spawn egg for {} with id {}.", entityTypeObject, entityType.getId());
       CUSTOM_NPC_SPAWN_EGGS.put(entityType, registerSpawnEgg(entityType.getId(), entityTypeObject));
     }
