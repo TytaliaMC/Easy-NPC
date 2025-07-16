@@ -19,12 +19,13 @@
 
 package de.markusbordihn.easynpc;
 
+import de.markusbordihn.easynpc.client.ClientEventHandler;
 import de.markusbordihn.easynpc.client.model.ModModelLayer;
-import de.markusbordihn.easynpc.client.renderer.ClientRenderer;
+import de.markusbordihn.easynpc.client.renderer.BlockEntityRenderer;
+import de.markusbordihn.easynpc.client.renderer.EntityRenderer;
 import de.markusbordihn.easynpc.client.screen.ClientScreens;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.LivingEntityEventHandler;
-import de.markusbordihn.easynpc.io.DataFileHandler;
 import de.markusbordihn.easynpc.network.NetworkHandlerManager;
 import de.markusbordihn.easynpc.network.NetworkHandlerManagerType;
 import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
@@ -32,6 +33,8 @@ import de.markusbordihn.easynpc.network.ServerNetworkMessageHandler;
 import de.markusbordihn.easynpc.tabs.ModTabs;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EasyNPCClient implements ClientModInitializer {
 
@@ -39,8 +42,10 @@ public class EasyNPCClient implements ClientModInitializer {
   public void onInitializeClient() {
     Logger.INSTANCE.info("Initializing {} (Fabric-Client) ...", Constants.MOD_NAME);
 
-    Logger.INSTANCE.info("{} Entity Renders ...", Constants.LOG_REGISTER_PREFIX);
-    ClientRenderer.registerEntityRenderers();
+    Logger.INSTANCE.info("{} Renders ...", Constants.LOG_REGISTER_PREFIX);
+      BlockEntityRenderer.register();
+      BlockEntityRenderer.registerRenderLayers();
+      EntityRenderer.register();
 
     Logger.INSTANCE.info("{} Entity Layer Definitions ...", Constants.LOG_REGISTER_PREFIX);
     ModModelLayer.registerEntityLayerDefinitions();
@@ -58,9 +63,7 @@ public class EasyNPCClient implements ClientModInitializer {
     Logger.INSTANCE.info("{} Client Screens ...", Constants.LOG_REGISTER_PREFIX);
     ClientScreens.registerScreens();
 
-    ClientLifecycleEvents.CLIENT_STARTED.register(
-        client -> {
-          DataFileHandler.registerClientDataFiles();
-        });
+    log.info("{} Client Event Handler ...", Constants.LOG_REGISTER_PREFIX);
+    ClientEventHandler.registerClientEvents();
   }
 }

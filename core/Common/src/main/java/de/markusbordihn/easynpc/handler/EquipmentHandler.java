@@ -19,16 +19,13 @@
 
 package de.markusbordihn.easynpc.handler;
 
-import de.markusbordihn.easynpc.data.animation.SmartAnimations;
-import de.markusbordihn.easynpc.debug.Logger;
+import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.ModelData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import de.markusbordihn.easynpc.debug.Logger;
 
 public class EquipmentHandler {
 
@@ -85,10 +82,10 @@ public class EquipmentHandler {
       if (hasItemInMainHand
           && !Items.AIR.equals(item)
           && !SmartAnimations.itemSupportSmartAnimation(item)) {
-        Logger.INSTANCE.debug("[{}] Disable smart animations for item {}", easyNPC, item);
+        log.debug("[{}] Disable smart animations for item {}", easyNPC, item);
         modelData.setItemSupportsSmartAnimations(false);
       } else if (!hasItemInMainHand && !modelData.getItemSupportsSmartAnimations()) {
-        Logger.INSTANCE.debug("[{}] Re-Enable smart animations for item {}", easyNPC, item);
+        log.debug("[{}] Re-Enable smart animations for item {}", easyNPC, item);
         modelData.setItemSupportsSmartAnimations(true);
       }
     }

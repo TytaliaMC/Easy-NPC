@@ -156,30 +156,30 @@ public class DialogScreen<T extends DialogMenu> extends Screen<T> {
                 };
         Component dialogButtonText = dialogButtonEntry.getButtonName(dialogButtonMaxTextLength);
 
-        // Create dialog button.
-        TextButton dialogButton =
-                new TextButton(
-                        this.leftPos + 70,
-                        this.topPos + 55,
-                        198,
-                        dialogButtonText,
-                        onPress -> {
-                            // Action Event on button click.
-                            if (this.getActionEventSet().hasActionEvent(ActionEventType.ON_BUTTON_CLICK)) {
-                                NetworkMessageHandlerManager.getServerHandler()
-                                        .triggerActionEvent(this.getEasyNPCUUID(), ActionEventType.ON_BUTTON_CLICK);
-                            }
+    // Create dialog button.
+    TextButton dialogButton =
+        new TextButton(
+            this.leftPos + 70,
+            this.topPos + 55,
+            198,
+            dialogButtonText,
+            onPress -> {
+              // Action Event on button click.
+              if (this.getActionEventSet().hasActionEvent(ActionEventType.ON_BUTTON_CLICK)) {
+                NetworkMessageHandlerManager.getServerHandler()
+                    .executeActionEvent(this.getEasyNPCUUID(), ActionEventType.ON_BUTTON_CLICK);
+              }
 
-                            // Custom action on button click.
-                            if (dialogButtonEntry.hasActionData()) {
-                                UUID buttonId = dialogButtonEntry.id();
-                                NetworkMessageHandlerManager.getServerHandler()
-                                        .triggerDialogButtonAction(
-                                                this.getEasyNPCUUID(), this.getDialogUUID(), buttonId);
-                            } else {
-                                this.closeScreen();
-                            }
-                        });
+              // Custom action on button click.
+              if (dialogButtonEntry.hasActionData()) {
+                UUID buttonId = dialogButtonEntry.id();
+                NetworkMessageHandlerManager.getServerHandler()
+                    .executeDialogButtonAction(
+                        this.getEasyNPCUUID(), this.getDialogUUID(), buttonId);
+              } else {
+                this.closeScreen();
+              }
+            });
 
         // Set dialog button visibility.
         dialogButton.visible = dialogButtonEntry.name() != null && !dialogButtonEntry.name().isBlank();
@@ -428,11 +428,11 @@ public class DialogScreen<T extends DialogMenu> extends Screen<T> {
             this.defineDialogNavigationButtons();
         }
 
-        // Action Event for open diaLogger.INSTANCE.
-        if (this.getActionEventSet().hasActionEvent(ActionEventType.ON_OPEN_DIALOG)) {
-            NetworkMessageHandlerManager.getServerHandler()
-                    .triggerActionEvent(this.getEasyNPCUUID(), ActionEventType.ON_OPEN_DIALOG);
-        }
+    // Action Event for open dialog.
+    if (this.getActionEventSet().hasActionEvent(ActionEventType.ON_OPEN_DIALOG)) {
+      NetworkMessageHandlerManager.getServerHandler()
+          .executeActionEvent(this.getEasyNPCUUID(), ActionEventType.ON_OPEN_DIALOG);
+    }
 
         // Get and render dialog buttons, if any.
         if (this.hasDialogData() && this.getDialogData().getNumberOfDialogButtons() > 0) {
@@ -486,13 +486,13 @@ public class DialogScreen<T extends DialogMenu> extends Screen<T> {
     protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int mouseX, int mouseY) {
     }
 
-    @Override
-    public void onClose() {
-        // Action Event for close dialog
-        if (this.getActionEventSet().hasActionEvent(ActionEventType.ON_CLOSE_DIALOG)) {
-            NetworkMessageHandlerManager.getServerHandler()
-                    .triggerActionEvent(this.getEasyNPCUUID(), ActionEventType.ON_CLOSE_DIALOG);
-        }
-        super.onClose();
+  @Override
+  public void onClose() {
+    // Action Event for close dialog.
+    if (this.getActionEventSet().hasActionEvent(ActionEventType.ON_CLOSE_DIALOG)) {
+      NetworkMessageHandlerManager.getServerHandler()
+          .executeActionEvent(this.getEasyNPCUUID(), ActionEventType.ON_CLOSE_DIALOG);
     }
+    super.onClose();
+  }
 }

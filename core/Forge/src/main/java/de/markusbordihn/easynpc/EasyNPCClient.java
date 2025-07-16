@@ -19,9 +19,9 @@
 
 package de.markusbordihn.easynpc;
 
-import de.markusbordihn.easynpc.client.ClientEvents;
 import de.markusbordihn.easynpc.client.model.ModModelLayer;
-import de.markusbordihn.easynpc.client.renderer.ClientRenderer;
+import de.markusbordihn.easynpc.client.renderer.BlockEntityRenderer;
+import de.markusbordihn.easynpc.client.renderer.EntityRenderer;
 import de.markusbordihn.easynpc.client.screen.ClientScreens;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.network.NetworkMessageHandlerManager;
@@ -36,12 +36,10 @@ public class EasyNPCClient {
     Logger.INSTANCE.info("Initializing {} (Forge-Client) ...", Constants.MOD_NAME);
 
     modEventBus.addListener(ModModelLayer::registerEntityLayerDefinitions);
-    modEventBus.addListener(ClientRenderer::registerEntityRenderers);
+    modEventBus.addListener(BlockEntityRenderer::register);
+    modEventBus.addListener(EntityRenderer::register);
     modEventBus.addListener(ClientScreens::registerScreens);
-    modEventBus.addListener(
-        (final FMLClientSetupEvent event) -> {
-          event.enqueueWork(ClientEvents::handleClientStarting);
-        });
+
     NetworkMessageHandlerManager.registerServerHandler(new ServerNetworkMessageHandler());
     ModTabs.CREATIVE_TABS.register(modEventBus);
   }

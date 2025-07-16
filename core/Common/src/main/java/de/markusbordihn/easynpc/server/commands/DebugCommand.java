@@ -40,48 +40,48 @@ public class DebugCommand extends Command {
     private DebugCommand() {
     }
 
-    public static ArgumentBuilder<CommandSourceStack, ?> register() {
-        return Commands.literal("debug")
-                .requires(cs -> cs.hasPermission(Commands.LEVEL_GAMEMASTERS))
+  public static ArgumentBuilder<CommandSourceStack, ?> register() {
+    return Commands.literal("debug")
+        .requires(cs -> cs.hasPermission(Commands.LEVEL_GAMEMASTERS))
+        .then(
+            Commands.literal("core")
                 .then(
-                        Commands.literal("log")
-                                .then(
-                                        Commands.argument("enable", BoolArgumentType.bool())
-                                                .executes(
-                                                        context ->
-                                                                setDebug(
-                                                                        context.getSource(),
-                                                                        BoolArgumentType.getBool(context, "enable")))))
+                    Commands.argument("enable", BoolArgumentType.bool())
+                        .executes(
+                            context ->
+                                setDebug(
+                                    context.getSource(),
+                                    BoolArgumentType.getBool(context, "enable")))))
+        .then(
+            Commands.literal("info")
                 .then(
-                        Commands.literal("info")
-                                .then(
-                                        Commands.literal("entity_types")
-                                                .executes(context -> getEntityTypes(context.getSource()))));
-    }
+                    Commands.literal("entity_types")
+                        .executes(context -> getEntityTypes(context.getSource()))));
+  }
 
-    public static int setDebug(CommandSourceStack context, boolean enable) {
-        if (enable) {
-            sendSuccessMessage(
-                    context,
-                    "► Enable debug for "
-                            + Constants.MOD_NAME
-                            + ", please check debug.log for the full output.",
-                    ChatFormatting.GREEN);
-            sendSuccessMessage(
-                    context,
-                    "> Use '/" + Constants.MOD_COMMAND + " debug false' to disable the debug!",
-                    ChatFormatting.WHITE);
-        } else {
-            sendSuccessMessage(
-                    context, "■ Disable debug for " + Constants.MOD_NAME + "!", ChatFormatting.RED);
-            sendSuccessMessage(
-                    context,
-                    "> Please check the latest.log and/or debug.log for the full output.",
-                    ChatFormatting.WHITE);
-        }
-        DebugManager.enableDebugLevel(enable);
-        return Command.SINGLE_SUCCESS;
+  public static int setDebug(CommandSourceStack context, boolean enable) {
+    if (enable) {
+      sendSuccessMessage(
+          context,
+          "► Enable debug for "
+              + Constants.MOD_NAME
+              + ", please check debug.log for the full output.",
+          ChatFormatting.GREEN);
+      sendSuccessMessage(
+          context,
+          "> Use '/" + Constants.MOD_COMMAND + " debug core false' to disable the debug!",
+          ChatFormatting.WHITE);
+    } else {
+      sendSuccessMessage(
+          context, "■ Disable debug for " + Constants.MOD_NAME + "!", ChatFormatting.RED);
+      sendSuccessMessage(
+          context,
+          "> Please check the latest.log and/or debug.log for the full output.",
+          ChatFormatting.WHITE);
     }
+    DebugManager.enableDebugLevel(enable);
+    return Command.SINGLE_SUCCESS;
+  }
 
     public static int getEntityTypes(CommandSourceStack context) {
         Set<EntityType<? extends Entity>> supportedEntityTypes =

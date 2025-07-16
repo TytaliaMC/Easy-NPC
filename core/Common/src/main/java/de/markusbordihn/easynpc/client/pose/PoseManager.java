@@ -23,14 +23,14 @@ import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.data.animation.AnimationData;
 import de.markusbordihn.easynpc.data.animation.AnimationData.Animation;
 import de.markusbordihn.easynpc.data.animation.AnimationData.Bone;
-import de.markusbordihn.easynpc.data.model.ModelPart;
+import de.markusbordihn.easynpc.data.model.ModelPartType;
 import de.markusbordihn.easynpc.data.model.ModelPose;
 import de.markusbordihn.easynpc.data.position.CustomPosition;
 import de.markusbordihn.easynpc.data.rotation.CustomRotation;
 import de.markusbordihn.easynpc.data.skin.SkinModel;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.ModelData;
+import de.markusbordihn.easynpc.entity.easynpc.data.ModelDataCapable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -119,9 +119,9 @@ public class PoseManager {
     }
 
     // Validate Model data.
-    ModelData<?> modelData = easyNPC.getEasyNPCModelData();
+    ModelDataCapable<?> modelData = easyNPC.getEasyNPCModelData();
     if (modelData == null) {
-      Logger.INSTANCE.error("{} Model data is missing for Easy NPC {}!", LOG_PREFIX, easyNPC.getUUID());
+      Logger.INSTANCE.error("{} Model data is missing for Easy NPC {}!", LOG_PREFIX, easyNPC.getEntityUUID());
       return;
     }
 
@@ -142,9 +142,9 @@ public class PoseManager {
     }
 
     // Validate Model data.
-    ModelData<?> modelData = easyNPC.getEasyNPCModelData();
+    ModelDataCapable<?> modelData = easyNPC.getEasyNPCModelData();
     if (modelData == null) {
-      Logger.INSTANCE.error("{} Model data is missing for Easy NPC {}!", LOG_PREFIX, easyNPC.getUUID());
+      Logger.INSTANCE.error("{} Model data is missing for Easy NPC {}!", LOG_PREFIX, easyNPC.getEntityUUID());
       return false;
     }
 
@@ -155,9 +155,9 @@ public class PoseManager {
     // Iterate over all bones and set the pose
     for (String boneName : animation.getBones().keySet()) {
       Bone bone = animation.getBones().get(boneName);
-      ModelPart modelPart = ModelPart.get(boneName);
-      if (modelPart == ModelPart.UNKNOWN) {
-        Logger.INSTANCE.error("{} Bone {} is not supported!", LOG_PREFIX, boneName);
+      ModelPartType modelPartType = ModelPartType.get(boneName);
+      if (modelPartType == ModelPartType.UNKNOWN) {
+          Logger.INSTANCE.error("{} Bone {} is not supported!", LOG_PREFIX, boneName);
         continue;
       }
 
@@ -176,10 +176,10 @@ public class PoseManager {
                   rotation.get(1) * (float) Math.PI / 180.0f,
                   rotation.get(2) * (float) Math.PI / 180.0f);
 
-      modelData.setModelPartPosition(modelPart, customPosition);
-      modelData.setModelPartRotation(modelPart, customRotation);
+      modelData.setModelPartPosition(modelPartType, customPosition);
+      modelData.setModelPartRotation(modelPartType, customRotation);
 
-      Logger.INSTANCE.debug("{} Set {} to {} / {}", LOG_PREFIX, modelPart, customPosition, customRotation);
+        Logger.INSTANCE.debug("{} Set {} to {} / {}", LOG_PREFIX, modelPartType, customPosition, customRotation);
     }
 
     return true;

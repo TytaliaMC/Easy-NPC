@@ -19,13 +19,14 @@
 
 package de.markusbordihn.easynpc.entity.easynpc.ai.goal;
 
+import de.markusbordihn.easynpc.data.model.ModelPartType;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.ModelData;
+import de.markusbordihn.easynpc.entity.easynpc.data.ModelDataCapable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 
 public class CustomLookAtPlayerGoal<T extends EasyNPC<?>> extends LookAtPlayerGoal {
-  private final ModelData<?> modelData;
+  private final ModelDataCapable<?> modelData;
 
   public CustomLookAtPlayerGoal(
       T easyNPC, Class<? extends LivingEntity> lookAtType, float lookDistance, float probability) {
@@ -44,18 +45,22 @@ public class CustomLookAtPlayerGoal<T extends EasyNPC<?>> extends LookAtPlayerGo
 
   @Override
   public boolean canUse() {
-    return (this.modelData == null || !this.modelData.getModelLockRotation()) && super.canUse();
+    return (this.modelData == null
+            || !this.modelData.getModelPartRotation(ModelPartType.ROOT).locked())
+        && super.canUse();
   }
 
   @Override
   public boolean canContinueToUse() {
-    return (this.modelData == null || !this.modelData.getModelLockRotation())
+    return (this.modelData == null
+            || !this.modelData.getModelPartRotation(ModelPartType.ROOT).locked())
         && super.canContinueToUse();
   }
 
   @Override
   public void tick() {
-    if (this.modelData == null || !this.modelData.getModelLockRotation()) {
+    if (this.modelData == null
+        || !this.modelData.getModelPartRotation(ModelPartType.ROOT).locked()) {
       super.tick();
     }
   }

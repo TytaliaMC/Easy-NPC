@@ -22,7 +22,7 @@ package de.markusbordihn.easynpc.client.texture;
 import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.data.skin.SkinModel;
 import de.markusbordihn.easynpc.debug.Logger;
-import de.markusbordihn.easynpc.entity.easynpc.data.SkinData;
+import de.markusbordihn.easynpc.entity.easynpc.data.SkinDataCapable;
 import de.markusbordihn.easynpc.io.CustomSkinDataFiles;
 import de.markusbordihn.easynpc.network.components.TextComponent;
 import net.minecraft.ChatFormatting;
@@ -67,7 +67,7 @@ public class CustomTextureManager {
   }
 
   public static ResourceLocation getOrCreateTextureWithDefault(
-      SkinData<?> skinData, ResourceLocation defaultResourceLocation) {
+      SkinDataCapable<?> skinData, ResourceLocation defaultResourceLocation) {
     // Check if we have a skin UUID otherwise we assume that the texture is unknown.
     UUID skinUUID = skinData.getSkinUUID();
     if (skinUUID.equals(Constants.BLANK_UUID)) {
@@ -86,7 +86,7 @@ public class CustomTextureManager {
   }
 
   private static ResourceLocation createTexture(
-      TextureModelKey textureModelKey, SkinData<?> skinData) {
+      TextureModelKey textureModelKey, SkinDataCapable<?> skinData) {
 
     // Reload protection to avoid multiple texture requests in a short time.
     UUID skinUUID = textureModelKey.getUUID();
@@ -124,14 +124,15 @@ public class CustomTextureManager {
     // Send error message to the user.
     Player player = Minecraft.getInstance().player;
     if (player != null) {
-      player.sendSystemMessage(
+      player.displayClientMessage(
           TextComponent.getText(
                   LOG_PREFIX
                       + "Unable to load custom texture "
                       + textureModelKey
                       + " from: "
                       + textureDataFolder)
-              .withStyle(ChatFormatting.RED));
+              .withStyle(ChatFormatting.RED),
+          false);
     }
 
     return null;

@@ -22,9 +22,9 @@ package de.markusbordihn.easynpc.handler;
 import de.markusbordihn.easynpc.data.attribute.*;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.AttributeData;
-import de.markusbordihn.easynpc.entity.easynpc.data.NavigationData;
-import de.markusbordihn.easynpc.entity.easynpc.data.ObjectiveData;
+import de.markusbordihn.easynpc.entity.easynpc.data.AttributeDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.NavigationDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.ObjectiveDataCapable;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -39,7 +39,7 @@ public class AttributeHandler {
     if (easyNPC == null || attributeType == null) {
       return false;
     }
-    AttributeData<?> attributeData = easyNPC.getEasyNPCAttributeData();
+    AttributeDataCapable<?> attributeData = easyNPC.getEasyNPCAttributeData();
     if (attributeData == null || attributeData.getEntityAttributes() == null) {
       return false;
     }
@@ -67,7 +67,7 @@ public class AttributeHandler {
     if (easyNPC == null || attributeType == null) {
       return false;
     }
-    AttributeData<?> attributeData = easyNPC.getEasyNPCAttributeData();
+    AttributeDataCapable<?> attributeData = easyNPC.getEasyNPCAttributeData();
     if (attributeData == null || attributeData.getEntityAttributes() == null) {
       return false;
     }
@@ -92,14 +92,14 @@ public class AttributeHandler {
     if (easyNPC == null || attributeType == null) {
       return false;
     }
-    AttributeData<?> attributeData = easyNPC.getEasyNPCAttributeData();
+    AttributeDataCapable<?> attributeData = easyNPC.getEasyNPCAttributeData();
     if (attributeData == null || attributeData.getEntityAttributes() == null) {
       return false;
     }
     EntityAttributes entityAttributes = attributeData.getEntityAttributes();
     EnvironmentalAttributes attributes = entityAttributes.getEnvironmentalAttributes();
-    ObjectiveData<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
-    NavigationData<?> navigationData = easyNPC.getEasyNPCNavigationData();
+      ObjectiveDataCapable<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
+      NavigationDataCapable<?> navigationData = easyNPC.getEasyNPCNavigationData();
     Logger.INSTANCE.debug("Changing environmental attribute {}={} for {}", attributeType, value, easyNPC);
     switch (attributeType) {
       case CAN_BREATHE_UNDERWATER ->
@@ -128,7 +128,7 @@ public class AttributeHandler {
     if (easyNPC == null || attributeType == null) {
       return false;
     }
-    AttributeData<?> attributeData = easyNPC.getEasyNPCAttributeData();
+    AttributeDataCapable<?> attributeData = easyNPC.getEasyNPCAttributeData();
     if (attributeData == null || attributeData.getEntityAttributes() == null) {
       return false;
     }
@@ -156,15 +156,15 @@ public class AttributeHandler {
     if (easyNPC == null || attributeType == null) {
       return false;
     }
-    AttributeData<?> attributeData = easyNPC.getEasyNPCAttributeData();
+    AttributeDataCapable<?> attributeData = easyNPC.getEasyNPCAttributeData();
     if (attributeData == null || attributeData.getEntityAttributes() == null) {
       return false;
     }
     EntityAttributes entityAttributes = attributeData.getEntityAttributes();
     MovementAttributes attributes = entityAttributes.getMovementAttributes();
-    ObjectiveData<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
-    NavigationData<?> navigationData = easyNPC.getEasyNPCNavigationData();
-    Logger.INSTANCE.debug("Changing moving attribute {}={} for {}", attributeType, value, easyNPC);
+    ObjectiveDataCapable<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
+    NavigationDataCapable<?> navigationData = easyNPC.getEasyNPCNavigationData();
+      Logger.INSTANCE.debug("Changing moving attribute {}={} for {}", attributeType, value, easyNPC);
     switch (attributeType) {
       case CAN_CLOSE_DOOR ->
           entityAttributes.setMovementAttributes(attributes.withCanCloseDoor(value));
@@ -196,10 +196,10 @@ public class AttributeHandler {
     if (easyNPC == null || entityAttribute == null) {
       return false;
     }
-    AttributeData<?> attributeData = easyNPC.getEasyNPCAttributeData();
+    AttributeDataCapable<?> attributeData = easyNPC.getEasyNPCAttributeData();
     if (attributeData != null) {
-      ObjectiveData<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
-      NavigationData<?> navigationData = easyNPC.getEasyNPCNavigationData();
+      ObjectiveDataCapable<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
+      NavigationDataCapable<?> navigationData = easyNPC.getEasyNPCNavigationData();
       switch (entityAttribute) {
         case SILENT:
           Logger.INSTANCE.debug("Change silent={} for {}", value, easyNPC);
@@ -219,7 +219,7 @@ public class AttributeHandler {
     if (easyNPC == null || attribute == null || value == null) {
       return false;
     }
-    AttributeData<?> attributeData = easyNPC.getEasyNPCAttributeData();
+    AttributeDataCapable<?> attributeData = easyNPC.getEasyNPCAttributeData();
     if (attributeData != null) {
       switch (attribute.toString()) {
         case "minecraft:generic.max_health":

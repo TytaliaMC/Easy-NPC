@@ -23,8 +23,8 @@ import de.markusbordihn.easynpc.data.objective.ObjectiveDataEntry;
 import de.markusbordihn.easynpc.data.objective.ObjectiveType;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.ObjectiveData;
-import de.markusbordihn.easynpc.entity.easynpc.data.OwnerData;
+import de.markusbordihn.easynpc.entity.easynpc.data.ObjectiveDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.OwnerDataCapable;
 import net.minecraft.world.entity.LivingEntity;
 
 public class OwnerHandler {
@@ -38,7 +38,7 @@ public class OwnerHandler {
       return false;
     }
 
-    OwnerData<?> ownerData = easyNPC.getEasyNPCOwnerData();
+    OwnerDataCapable<?> ownerData = easyNPC.getEasyNPCOwnerData();
     if (ownerData == null) {
       Logger.INSTANCE.error("[{}] No owner data available for setting owner!", easyNPC);
       return false;
@@ -53,7 +53,7 @@ public class OwnerHandler {
     ownerData.setOwnerUUID(owner.getUUID());
 
     // Update objective data if follow owner objective is active.
-    ObjectiveData<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
+    ObjectiveDataCapable<?> objectiveData = easyNPC.getEasyNPCObjectiveData();
     if (objectiveData != null && objectiveData.hasObjective(ObjectiveType.FOLLOW_OWNER)) {
       ObjectiveDataEntry objectiveDataEntry =
           objectiveData.getObjective(ObjectiveType.FOLLOW_OWNER);
@@ -70,7 +70,7 @@ public class OwnerHandler {
   }
 
   public static boolean removeOwner(EasyNPC<?> easyNPC) {
-    OwnerData<?> ownerData = easyNPC.getEasyNPCOwnerData();
+    OwnerDataCapable<?> ownerData = easyNPC.getEasyNPCOwnerData();
     if (ownerData == null) {
       Logger.INSTANCE.error("[{}] No owner data available for setting owner!", easyNPC);
       return false;

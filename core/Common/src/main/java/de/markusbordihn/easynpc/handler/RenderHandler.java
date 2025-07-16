@@ -22,7 +22,7 @@ package de.markusbordihn.easynpc.handler;
 import de.markusbordihn.easynpc.data.render.RenderType;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.RenderData;
+import de.markusbordihn.easynpc.entity.easynpc.data.RenderDataCapable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 
@@ -36,7 +36,7 @@ public class RenderHandler {
       return false;
     }
 
-    RenderData<?> renderData = easyNPC.getEasyNPCRenderData();
+    RenderDataCapable<?> renderData = easyNPC.getEasyNPCRenderData();
     if (renderData == null) {
       Logger.INSTANCE.error("[{}] No render data available for setting render type {}!", easyNPC, renderType);
       return false;
@@ -55,7 +55,7 @@ public class RenderHandler {
       return false;
     }
 
-    RenderData<?> renderData = easyNPC.getEasyNPCRenderData();
+    RenderDataCapable<?> renderData = easyNPC.getEasyNPCRenderData();
     if (renderData == null || renderData.getRenderDataSet() == null) {
       Logger.INSTANCE.error("[{}] No render data available for setting render entity {}!", easyNPC, entityType);
       return false;

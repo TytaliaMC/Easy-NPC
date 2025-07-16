@@ -24,8 +24,8 @@ import de.markusbordihn.easynpc.data.skin.SkinDataEntry;
 import de.markusbordihn.easynpc.data.skin.SkinType;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.SkinData;
-import de.markusbordihn.easynpc.entity.easynpc.data.VariantData;
+import de.markusbordihn.easynpc.entity.easynpc.data.SkinDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.VariantDataCapable;
 import de.markusbordihn.easynpc.validator.UrlValidator;
 
 import java.util.UUID;
@@ -40,7 +40,7 @@ public class SkinHandler {
       return false;
     }
 
-    SkinData<?> skinData = easyNPC.getEasyNPCSkinData();
+    SkinDataCapable<?> skinData = easyNPC.getEasyNPCSkinData();
     if (skinData != null) {
       Logger.INSTANCE.debug("[{}] Setting none skin", easyNPC);
       SkinDataEntry skinDataEntry = skinData.getSkinDataEntry().withType(SkinType.NONE);
@@ -56,7 +56,7 @@ public class SkinHandler {
       return false;
     }
 
-    SkinData<?> skinData = easyNPC.getEasyNPCSkinData();
+    SkinDataCapable<?> skinData = easyNPC.getEasyNPCSkinData();
     if (skinData != null && skinData.getSkinType() != SkinType.DEFAULT) {
       Logger.INSTANCE.debug(
           "[{}] Set skin type from {} to {}", easyNPC, skinData.getSkinType(), SkinType.DEFAULT);
@@ -64,10 +64,10 @@ public class SkinHandler {
       skinData.setSkinDataEntry(skinDataEntry);
     }
 
-    VariantData<?> variantData = skinData.getEasyNPCVariantData();
+    VariantDataCapable<?> variantData = skinData.getEasyNPCVariantData();
     if (variantData != null) {
-      Logger.INSTANCE.debug("[{}] Set default skin to {}", easyNPC, variant);
-      variantData.setVariant(variant);
+        Logger.INSTANCE.debug("[{}] Set default skin to {}", easyNPC, variant);
+      variantData.setVariantType(variant);
       return true;
     }
     return false;
@@ -79,7 +79,7 @@ public class SkinHandler {
       return false;
     }
 
-    SkinData<?> skinData = easyNPC.getEasyNPCSkinData();
+    SkinDataCapable<?> skinData = easyNPC.getEasyNPCSkinData();
     if (skinData != null) {
       Logger.INSTANCE.debug("[{}] Set custom skin to UUID {}", easyNPC, skinUUID);
       SkinDataEntry skinDataEntry =
@@ -99,7 +99,7 @@ public class SkinHandler {
       return false;
     }
 
-    SkinData<?> skinData = easyNPC.getEasyNPCSkinData();
+    SkinDataCapable<?> skinData = easyNPC.getEasyNPCSkinData();
     if (skinData != null) {
       Logger.INSTANCE.debug("[{}] Setting player skin to {} with UUID {}", easyNPC, playerName, playerUUID);
       SkinDataEntry skinDataEntry =
@@ -127,7 +127,7 @@ public class SkinHandler {
       return false;
     }
 
-    SkinData<?> skinData = easyNPC.getEasyNPCSkinData();
+    SkinDataCapable<?> skinData = easyNPC.getEasyNPCSkinData();
     if (skinData != null) {
       Logger.INSTANCE.debug("[{}] Set secure remote skin to URL {}", easyNPC, skinURL);
       SkinDataEntry skinDataEntry =
@@ -151,7 +151,7 @@ public class SkinHandler {
       return false;
     }
 
-    SkinData<?> skinData = easyNPC.getEasyNPCSkinData();
+    SkinDataCapable<?> skinData = easyNPC.getEasyNPCSkinData();
     if (skinData != null) {
       Logger.INSTANCE.debug("[{}] Set insecure remote skin to URL {}", easyNPC, skinURL);
       SkinDataEntry skinDataEntry =

@@ -23,7 +23,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import de.markusbordihn.easynpc.commands.Command;
 import de.markusbordihn.easynpc.commands.arguments.EasyNPCArgument;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.OwnerData;
+import de.markusbordihn.easynpc.entity.easynpc.data.OwnerDataCapable;
 import de.markusbordihn.easynpc.handler.OwnerHandler;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -92,13 +92,14 @@ public class OwnerCommand extends Command {
     }
 
     // Get owner data for EasyNPC entity.
-    OwnerData<?> ownerData = easyNPC.getEasyNPCOwnerData();
+    OwnerDataCapable<?> ownerData = easyNPC.getEasyNPCOwnerData();
     if (ownerData == null) {
       return sendFailureMessageNoOwnerData(context, easyNPC);
     }
 
     return sendSuccessMessage(
-        context, EASY_NPC_PREFIX + easyNPC.getUUID() + " is owned by " + ownerData.getOwner());
+        context,
+        EASY_NPC_PREFIX + easyNPC.getEntityUUID() + " is owned by " + ownerData.getOwner());
   }
 
   private static int removeOwner(CommandSourceStack context, EasyNPC<?> easyNPC) {

@@ -23,7 +23,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.LivingEntityManager;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.OwnerData;
+import de.markusbordihn.easynpc.entity.easynpc.data.OwnerDataCapable;
+import java.util.UUID;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
@@ -68,8 +69,8 @@ public class AccessManager {
             && easyNPC.getEasyNPCOwnerData() != null
             && entity instanceof EasyNPC<?> easyNPCEntity
             && easyNPCEntity.getEasyNPCOwnerData() != null) {
-          OwnerData<?> ownerData = easyNPC.getEasyNPCOwnerData();
-          OwnerData<?> ownerDataEntity = easyNPCEntity.getEasyNPCOwnerData();
+          OwnerDataCapable<?> ownerData = easyNPC.getEasyNPCOwnerData();
+          OwnerDataCapable<?> ownerDataEntity = easyNPCEntity.getEasyNPCOwnerData();
           boolean ownerDataAccess =
               (!ownerData.hasOwner() && !ownerDataEntity.hasOwner())
                   || (ownerData.getOwner() != null
@@ -100,6 +101,10 @@ public class AccessManager {
         return true;
       }
     }
+  }
+
+  public static boolean hasAccess(ServerPlayer serverPlayer, EasyNPC<?> easyNPC) {
+    return getEasyNPCEntityByUUID(easyNPC.getEntityUUID(), serverPlayer) != null;
   }
 
   public static boolean hasAccess(ServerPlayer serverPlayer, UUID uuid) {

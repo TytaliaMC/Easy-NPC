@@ -29,7 +29,8 @@ import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import org.jetbrains.annotations.NotNull;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SliderButton extends AbstractSliderButton {
 
@@ -268,7 +269,7 @@ public class SliderButton extends AbstractSliderButton {
     }
   }
 
-  protected void renderBg(@NotNull GuiGraphics guiGraphics) {
+  protected void renderBg(GuiGraphics guiGraphics) {
     int i = this.isHoveredOrFocused() ? 60 : 40;
 
     // Slider: Top Part

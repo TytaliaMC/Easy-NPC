@@ -39,7 +39,6 @@ public class ModModelLayer {
             EntityRenderersEvent.RegisterLayerDefinitions event) {
         Logger.INSTANCE.info("{} Entity Layer Definitions ...", Constants.LOG_REGISTER_PREFIX);
 
-        event.registerLayerDefinition(ModModelLayers.ALLAY, StandardAllayModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.FAIRY, FairyModel::createBodyLayer);
         event.registerLayerDefinition(ModModelLayers.ORC, OrcModel::createBodyLayer);
     }

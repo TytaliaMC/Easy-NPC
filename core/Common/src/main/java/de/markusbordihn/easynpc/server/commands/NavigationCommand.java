@@ -23,7 +23,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import de.markusbordihn.easynpc.commands.Command;
 import de.markusbordihn.easynpc.commands.arguments.EasyNPCArgument;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.NavigationData;
+import de.markusbordihn.easynpc.entity.easynpc.data.NavigationDataCapable;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.Coordinates;
@@ -103,7 +103,7 @@ public class NavigationCommand extends Command {
     }
 
     // Check for navigation data
-    NavigationData<?> navigationData = easyNPC.getEasyNPCNavigationData();
+    NavigationDataCapable<?> navigationData = easyNPC.getEasyNPCNavigationData();
     if (navigationData == null) {
       return sendFailureMessageNoNavigationData(context, easyNPC);
     }
@@ -116,7 +116,7 @@ public class NavigationCommand extends Command {
         "Set home position for EasyNPC "
             + easyNPC
             + " with UUID "
-            + easyNPC.getUUID()
+            + easyNPC.getEntityUUID()
             + " to "
             + blockPos);
   }
@@ -127,7 +127,7 @@ public class NavigationCommand extends Command {
     }
 
     // Check for navigation data
-    NavigationData<?> navigationData = easyNPC.getEasyNPCNavigationData();
+    NavigationDataCapable<?> navigationData = easyNPC.getEasyNPCNavigationData();
     if (navigationData == null) {
       return sendFailureMessageNoNavigationData(context, easyNPC);
     }
@@ -139,7 +139,7 @@ public class NavigationCommand extends Command {
         "Set position for EasyNPC "
             + easyNPC
             + " with UUID "
-            + easyNPC.getUUID()
+            + easyNPC.getEntityUUID()
             + " to "
             + position);
   }
@@ -150,7 +150,7 @@ public class NavigationCommand extends Command {
     }
 
     // Check for navigation data
-    NavigationData<?> navigationData = easyNPC.getEasyNPCNavigationData();
+    NavigationDataCapable<?> navigationData = easyNPC.getEasyNPCNavigationData();
     if (navigationData == null) {
       return sendFailureMessageNoNavigationData(context, easyNPC);
     }

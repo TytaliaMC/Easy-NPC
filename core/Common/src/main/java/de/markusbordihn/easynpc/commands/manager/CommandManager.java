@@ -40,21 +40,26 @@ public class CommandManager {
         Constants.MOD_NAME);
     commandDispatcher.register(
         Commands.literal(Constants.MOD_COMMAND)
-            .then(ConfigureCommand.register())
             .then(DebugCommand.register())
             .then(DeleteCommand.register())
             .then(DialogCommand.register())
             .then(EquipmentCommand.register(context))
             .then(InteractCommand.register())
+            .then(NameCommand.register())
             .then(NavigationCommand.register())
             .then(ObjectiveCommand.register())
             .then(OwnerCommand.register())
             .then(PoseCommand.register())
+            .then(PositionCommand.register())
             .then(PresetCommand.register())
             .then(RenderCommand.register())
             .then(RespawnCommand.register())
+            .then(RotateCommand.register())
+            .then(ScaleCommand.register())
             .then(SkinCommand.register())
             .then(SoundCommand.register())
+            .then(SpawnerCommand.register())
+            .then(TestCommand.register())
             .then(TradingCommand.register()));
   }
 }

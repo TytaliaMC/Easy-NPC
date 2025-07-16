@@ -61,7 +61,7 @@ public class Checkbox extends AbstractButton {
   }
 
   public Checkbox(int left, int top, String label, boolean selected) {
-    this(left, top, TextComponent.getTranslatedConfigText(label), selected, true);
+    this(left, top, TextComponent.getTranslatedText(label), selected, true);
   }
 
   public Checkbox(int left, int top, Component component, boolean selected, boolean showLabel) {
@@ -92,6 +92,10 @@ public class Checkbox extends AbstractButton {
 
   public boolean selected() {
     return this.selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
   }
 
   public void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {

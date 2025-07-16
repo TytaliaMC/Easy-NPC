@@ -21,7 +21,7 @@ package de.markusbordihn.easynpc.item;
 
 import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.OwnerData;
+import de.markusbordihn.easynpc.entity.easynpc.data.OwnerDataCapable;
 import de.markusbordihn.easynpc.network.components.TextComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -50,29 +50,28 @@ public class ModSpawnEggItem extends SpawnEggItem {
   public static final String SUFFIX = "_spawn_egg";
   private final Supplier<? extends EntityType<? extends Mob>> typeSupplier;
 
+  public ModSpawnEggItem(EntityType<? extends Mob> entityType, Properties properties) {
+    this(() -> entityType, properties);
+  }
+
   public ModSpawnEggItem(
       Supplier<? extends EntityType<? extends Mob>> entityType, Properties properties) {
     super(null, Constants.FONT_COLOR_RED, Constants.FONT_COLOR_YELLOW, properties);
     this.typeSupplier = entityType;
   }
 
-  public ModSpawnEggItem(EntityType<? extends Mob> entityType, Properties properties) {
-    super(null, Constants.FONT_COLOR_RED, Constants.FONT_COLOR_YELLOW, properties);
-    this.typeSupplier = () -> entityType;
-  }
-
   @Override
   public Component getName(ItemStack itemStack) {
-    String descriptionId = this.getDescriptionId(itemStack);
+    String descriptionId = this.getDescriptionId();
     if (descriptionId.contains(SUFFIX)) {
       return TextComponent.getTranslatedTextRaw(
           Constants.ITEM_PREFIX + "spawn_egg",
           TextComponent.getTranslatedTextRaw(
-              this.getDescriptionId(itemStack)
+              this.getDescriptionId()
                   .replace(Constants.ITEM_PREFIX, Constants.ENTITY_PREFIX)
                   .replace(SUFFIX, "")));
     }
-    return TextComponent.getTranslatedTextRaw(this.getDescriptionId(itemStack));
+    return TextComponent.getTranslatedTextRaw(this.getDescriptionId());
   }
 
   @Override
@@ -119,7 +118,7 @@ public class ModSpawnEggItem extends SpawnEggItem {
     if (entity != null) {
       // Set owner data for the entity if it is an EasyNPC.
       if (entity instanceof EasyNPC<?> easyNPC && player != null) {
-        OwnerData<?> ownerData = easyNPC.getEasyNPCOwnerData();
+        OwnerDataCapable<?> ownerData = easyNPC.getEasyNPCOwnerData();
         if (ownerData != null) {
           ownerData.setOwnerUUID(player.getUUID());
         }

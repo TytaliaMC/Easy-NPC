@@ -19,18 +19,17 @@
 
 package de.markusbordihn.easynpc.client;
 
-import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.client.renderer.manager.EntityTypeManager;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.io.DataFileHandler;
+
+import net.minecraft.client.Minecraft;
 
 public class ClientEvents {
 
   private ClientEvents() {}
 
-  public static void handleClientStarting() {
-    Logger.INSTANCE.info("{} Client starting Events ...", Constants.LOG_REGISTER_PREFIX);
-
+  public static void handleClientStartedEvent(Minecraft client) {
     // Prepare custom data directory for client.
     DataFileHandler.registerClientDataFiles();
 

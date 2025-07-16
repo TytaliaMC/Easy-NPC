@@ -19,30 +19,32 @@
 
 package de.markusbordihn.easynpc.entity.easynpc;
 
+import de.markusbordihn.easynpc.data.status.StatusDataType;
 import de.markusbordihn.easynpc.data.synched.SynchedDataIndex;
 import de.markusbordihn.easynpc.debug.Logger;
-import de.markusbordihn.easynpc.entity.easynpc.data.ActionEventData;
-import de.markusbordihn.easynpc.entity.easynpc.data.AttackData;
-import de.markusbordihn.easynpc.entity.easynpc.data.AttributeData;
-import de.markusbordihn.easynpc.entity.easynpc.data.ConfigData;
-import de.markusbordihn.easynpc.entity.easynpc.data.ConfigurationData;
-import de.markusbordihn.easynpc.entity.easynpc.data.CustomAttributeData;
-import de.markusbordihn.easynpc.entity.easynpc.data.DialogData;
-import de.markusbordihn.easynpc.entity.easynpc.data.DisplayAttributeData;
-import de.markusbordihn.easynpc.entity.easynpc.data.GuiData;
-import de.markusbordihn.easynpc.entity.easynpc.data.NavigationData;
-import de.markusbordihn.easynpc.entity.easynpc.data.ObjectiveData;
-import de.markusbordihn.easynpc.entity.easynpc.data.OwnerData;
-import de.markusbordihn.easynpc.entity.easynpc.data.PresetData;
-import de.markusbordihn.easynpc.entity.easynpc.data.ProfessionData;
-import de.markusbordihn.easynpc.entity.easynpc.data.RenderData;
-import de.markusbordihn.easynpc.entity.easynpc.data.ServerData;
-import de.markusbordihn.easynpc.entity.easynpc.data.SkinData;
-import de.markusbordihn.easynpc.entity.easynpc.data.SoundData;
-import de.markusbordihn.easynpc.entity.easynpc.data.SpawnerData;
-import de.markusbordihn.easynpc.entity.easynpc.data.TickerData;
-import de.markusbordihn.easynpc.entity.easynpc.data.TradingData;
-import de.markusbordihn.easynpc.entity.easynpc.data.VariantData;
+import de.markusbordihn.easynpc.entity.easynpc.data.ActionEventDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.AttackDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.AttributeDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.ConfigDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.ConfigurationDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.CustomAttributeDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.DialogDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.DisplayAttributeDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.GuiDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.ModelDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.NavigationDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.ObjectiveDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.OwnerDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.PresetDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.ProfessionDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.RenderDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.ServerDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.SkinDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.SoundDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.StatusDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.TickerDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.TradingDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.VariantDataCapable;
 import de.markusbordihn.easynpc.entity.easynpc.handlers.ActionHandler;
 import de.markusbordihn.easynpc.entity.easynpc.handlers.AttributeHandler;
 import de.markusbordihn.easynpc.entity.easynpc.handlers.BaseTickHandler;
@@ -57,55 +59,57 @@ import net.minecraft.world.entity.SpawnGroupData;
 public interface EasyNPCBase<E extends PathfinderMob>
     extends Saddleable,
         EasyNPC<E>,
-        ActionEventData<E>,
+        ActionEventDataCapable<E>,
         ActionHandler<E>,
-        AttackData<E>,
-        AttributeData<E>,
+        AttackDataCapable<E>,
+        AttributeDataCapable<E>,
         AttributeHandler<E>,
         BaseTickHandler<E>,
-        ConfigData<E>,
-        ConfigurationData<E>,
-        CustomAttributeData<E>,
-        DialogData<E>,
-        DisplayAttributeData<E>,
-        GuiData<E>,
-        NavigationData<E>,
-        ObjectiveData<E>,
-        OwnerData<E>,
-        PresetData<E>,
-        ProfessionData<E>,
-        RenderData<E>,
-        ServerData<E>,
-        SkinData<E>,
-        SoundData<E>,
-        SpawnerData<E>,
-        TickerData<E>,
-        TradingData<E>,
-        VariantData<E> {
+        ConfigDataCapable<E>,
+        ConfigurationDataCapable<E>,
+        CustomAttributeDataCapable<E>,
+        DialogDataCapable<E>,
+        DisplayAttributeDataCapable<E>,
+        GuiDataCapable<E>,
+        ModelDataCapable<E>,
+        NavigationDataCapable<E>,
+        ObjectiveDataCapable<E>,
+        OwnerDataCapable<E>,
+        PresetDataCapable<E>,
+        ProfessionDataCapable<E>,
+        RenderDataCapable<E>,
+        ServerDataCapable<E>,
+        SkinDataCapable<E>,
+        SoundDataCapable<E>,
+        StatusDataCapable<E>,
+        TickerDataCapable<E>,
+        TradingDataCapable<E>,
+        VariantDataCapable<E> {
 
   static void registerEasyNPCSyncedData(
       EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-    AttackData.registerSyncedAttackData(map, entityClass);
-    AttributeData.registerSyncedAttributeData(map, entityClass);
-    CustomAttributeData.registerSyncedCustomAttributeData(map, entityClass);
-    DisplayAttributeData.registerSyncedDisplayAttributeData(map, entityClass);
-    NavigationData.registerSyncedNavigationData(map, entityClass);
-    OwnerData.registerSyncedOwnerData(map, entityClass);
-    ProfessionData.registerSyncedProfessionData(map, entityClass);
-    RenderData.registerSyncedRenderData(map, entityClass);
-    SkinData.registerSyncedSkinData(map, entityClass);
-    SoundData.registerSyncedSoundData(map, entityClass);
-    TradingData.registerSyncedTradingData(map, entityClass);
-    VariantData.registerSyncedVariantData(map, entityClass);
+    AttackDataCapable.registerSyncedAttackData(map, entityClass);
+    AttributeDataCapable.registerSyncedAttributeData(map, entityClass);
+    CustomAttributeDataCapable.registerSyncedCustomAttributeData(map, entityClass);
+    DisplayAttributeDataCapable.registerSyncedDisplayAttributeData(map, entityClass);
+    ModelDataCapable.registerSyncedModelData(map, entityClass);
+    NavigationDataCapable.registerSyncedNavigationData(map, entityClass);
+    OwnerDataCapable.registerSyncedOwnerData(map, entityClass);
+    ProfessionDataCapable.registerSyncedProfessionData(map, entityClass);
+    RenderDataCapable.registerSyncedRenderData(map, entityClass);
+    SkinDataCapable.registerSyncedSkinData(map, entityClass);
+    SoundDataCapable.registerSyncedSoundData(map, entityClass);
+    TradingDataCapable.registerSyncedTradingData(map, entityClass);
+    VariantDataCapable.registerSyncedVariantData(map, entityClass);
   }
 
-  default void registerEasyNPCDefaultHandler(Enum<?> variant) {
-    Logger.INSTANCE.info("Register default handler for {} with variant {} ...", this, variant);
-    VariantData<E> variantData = getEasyNPCVariantData();
+  default void registerEasyNPCDefaultVariant(Enum<?> variant) {
+    log.info("Register default variant for {} with variant {} ...", this, variant);
+    VariantDataCapable<E> variantData = getEasyNPCVariantData();
     if (variantData != null) {
-      variantData.setVariant(variant);
+      variantData.setVariantType(variant);
     }
-    SoundData<E> soundData = getEasyNPCSoundData();
+    SoundDataCapable<E> soundData = getEasyNPCSoundData();
     if (soundData != null) {
       soundData.registerDefaultSoundData(variant);
     }
@@ -115,21 +119,29 @@ public interface EasyNPCBase<E extends PathfinderMob>
     Logger.INSTANCE.info("Finalize spawn for {} ...", this);
 
     // Set default navigation data.
-    NavigationData<?> navigationData = getEasyNPCNavigationData();
+    NavigationDataCapable<?> navigationData = getEasyNPCNavigationData();
     if (navigationData != null && !navigationData.hasHomePosition()) {
       navigationData.setHomePosition(this.getEntity().blockPosition());
     }
 
-    // Register standard Objectives
-    ObjectiveData<E> objectiveData = getEasyNPCObjectiveData();
-    if (objectiveData != null) {
-      objectiveData.registerStandardObjectives();
-    }
+    // Skip next steps if NPC was already finalized.
+    StatusDataCapable<?> statusData = getEasyNPCStatusData();
+    if (statusData == null || !statusData.getStatusDataFlag(StatusDataType.FINALIZED)) {
+      log.debug("Register default data for {} ...", this);
 
-    // Add default action interaction events
-    ActionEventData<E> actionEventData = getEasyNPCActionEventData();
-    if (actionEventData != null) {
-      actionEventData.registerDefaultActionInteractionEvents();
+      // Register standard Objectives
+      ObjectiveDataCapable<E> objectiveData = getEasyNPCObjectiveData();
+      if (objectiveData != null) {
+        objectiveData.registerStandardObjectives();
+      }
+
+      // Add default action interaction events
+      ActionEventDataCapable<E> actionEventData = getEasyNPCActionEventData();
+      if (actionEventData != null) {
+        actionEventData.registerDefaultActionInteractionEvents();
+      }
+    } else {
+      log.debug("Skip default data registration for {} ...", this);
     }
 
     return spawnGroupData;
@@ -139,71 +151,75 @@ public interface EasyNPCBase<E extends PathfinderMob>
     Logger.INSTANCE.debug("Define synced data for {}", this);
 
     // First define variant data to ensure that all other data can be linked to the variant.
-    VariantData<E> variantData = getEasyNPCVariantData();
+    VariantDataCapable<E> variantData = getEasyNPCVariantData();
     if (variantData != null) {
       variantData.defineSynchedVariantData();
     }
 
     // Define all other synced data.
-    ActionEventData<E> actionEventData = getEasyNPCActionEventData();
+    ActionEventDataCapable<E> actionEventData = getEasyNPCActionEventData();
     if (actionEventData != null) {
       actionEventData.defineSynchedActionData();
     }
-    AttackData<E> attackData = getEasyNPCAttackData();
+    AttackDataCapable<E> attackData = getEasyNPCAttackData();
     if (attackData != null) {
       attackData.defineSynchedAttackData();
     }
-    AttributeData<E> attributeData = getEasyNPCAttributeData();
+    AttributeDataCapable<E> attributeData = getEasyNPCAttributeData();
     if (attributeData != null) {
       attributeData.defineSynchedAttributeData();
     }
-    CustomAttributeData<E> customAttributeData = getEasyNPCCustomAttributeData();
+    CustomAttributeDataCapable<E> customAttributeData = getEasyNPCCustomAttributeData();
     if (customAttributeData != null) {
       customAttributeData.defineSynchedCustomAttributeData();
     }
-    DialogData<E> dialogData = getEasyNPCDialogData();
+    DialogDataCapable<E> dialogData = getEasyNPCDialogData();
     if (dialogData != null) {
       dialogData.defineSynchedDialogData();
     }
-    DisplayAttributeData<E> displayAttributeData = getEasyNPCDisplayAttributeData();
+    DisplayAttributeDataCapable<E> displayAttributeData = getEasyNPCDisplayAttributeData();
     if (displayAttributeData != null) {
       displayAttributeData.defineSynchedDisplayAttributeData();
     }
-    NavigationData<E> navigationData = getEasyNPCNavigationData();
+    ModelDataCapable<E> modelData = getEasyNPCModelData();
+    if (modelData != null) {
+      modelData.defineSynchedModelData();
+    }
+    NavigationDataCapable<E> navigationData = getEasyNPCNavigationData();
     if (navigationData != null) {
       navigationData.defineSynchedNavigationData();
     }
-    OwnerData<E> ownerData = getEasyNPCOwnerData();
+    OwnerDataCapable<E> ownerData = getEasyNPCOwnerData();
     if (ownerData != null) {
       ownerData.defineSynchedOwnerData();
     }
-    ProfessionData<E> professionData = getEasyNPCProfessionData();
+    ProfessionDataCapable<E> professionData = getEasyNPCProfessionData();
     if (professionData != null) {
       professionData.defineSynchedProfessionData();
     }
-    RenderData<E> renderData = getEasyNPCRenderData();
+    RenderDataCapable<E> renderData = getEasyNPCRenderData();
     if (renderData != null) {
       renderData.defineSynchedRenderData();
     }
-    SkinData<E> skinData = getEasyNPCSkinData();
+    SkinDataCapable<E> skinData = getEasyNPCSkinData();
     if (skinData != null) {
       skinData.defineSynchedSkinData();
     }
-    SoundData<E> soundData = getEasyNPCSoundData();
+    SoundDataCapable<E> soundData = getEasyNPCSoundData();
     if (soundData != null) {
       soundData.defineSynchedSoundData();
     }
-    TradingData<E> tradingData = getEasyNPCTradingData();
+    TradingDataCapable<E> tradingData = getEasyNPCTradingData();
     if (tradingData != null) {
       tradingData.defineSynchedTradingData();
     }
   }
 
   default void defineEasyNPCBaseServerSideData() {
-    if (!this.isServerSide()) {
+    if (!this.isServerSideInstance()) {
       return;
     }
-    ServerData<E> serverData = getEasyNPCServerData();
+    ServerDataCapable<E> serverData = getEasyNPCServerData();
     if (serverData == null) {
       Logger.INSTANCE.error("No server data available for {}", this);
       return;
@@ -218,87 +234,95 @@ public interface EasyNPCBase<E extends PathfinderMob>
     if (actionEventData != null) {
       actionEventData.defineCustomActionData();
     }
-    DialogData<E> dialogData = getEasyNPCDialogData();
+    DialogDataCapable<E> dialogData = getEasyNPCDialogData();
     if (dialogData != null) {
       dialogData.defineCustomDialogData();
     }
-    ObjectiveData<E> objectiveData = getEasyNPCObjectiveData();
+    ObjectiveDataCapable<E> objectiveData = getEasyNPCObjectiveData();
     if (objectiveData != null) {
       objectiveData.defineCustomObjectiveData();
     }
-    SpawnerData<E> spawnerData = getEasyNPCSpawnerData();
-    if (spawnerData != null) {
-      spawnerData.defineCustomSpawnerData();
+    PresetDataCapable<E> presetData = getEasyNPCPresetData();
+    if (presetData != null) {
+      presetData.defineCustomPresetData();
     }
   }
 
   default void addEasyNPCBaseAdditionalSaveData(CompoundTag compoundTag) {
     Logger.INSTANCE.debug("Add additional save data for {}", this);
-    ActionEventData<E> actionEventData = getEasyNPCActionEventData();
+      ActionEventDataCapable<E> actionEventData = getEasyNPCActionEventData();
     if (actionEventData != null) {
       actionEventData.addAdditionalActionData(compoundTag);
     }
-    AttackData<E> attackData = getEasyNPCAttackData();
+    AttackDataCapable<E> attackData = getEasyNPCAttackData();
     if (attackData != null) {
       attackData.addAdditionalAttackData(compoundTag);
     }
-    AttributeData<E> attributeData = getEasyNPCAttributeData();
+    AttributeDataCapable<E> attributeData = getEasyNPCAttributeData();
     if (attributeData != null) {
       attributeData.addAdditionalAttributeData(compoundTag);
     }
-    CustomAttributeData<E> customAttributeData = getEasyNPCCustomAttributeData();
+    CustomAttributeDataCapable<E> customAttributeData = getEasyNPCCustomAttributeData();
     if (customAttributeData != null) {
       customAttributeData.addAdditionalCustomAttributeData(compoundTag);
     }
-    ConfigData<E> configData = getEasyNPCConfigData();
+    ConfigDataCapable<E> configData = getEasyNPCConfigData();
     if (configData != null) {
       configData.addAdditionalConfigData(compoundTag);
     }
-    DialogData<E> dialogData = getEasyNPCDialogData();
+    DialogDataCapable<E> dialogData = getEasyNPCDialogData();
     if (dialogData != null) {
       dialogData.addAdditionalDialogData(compoundTag);
     }
-    DisplayAttributeData<E> displayAttributeData = getEasyNPCDisplayAttributeData();
+    DisplayAttributeDataCapable<E> displayAttributeData = getEasyNPCDisplayAttributeData();
     if (displayAttributeData != null) {
       displayAttributeData.addAdditionalDisplayAttributeData(compoundTag);
     }
-    NavigationData<E> navigationData = getEasyNPCNavigationData();
+    ModelDataCapable<E> modelData = getEasyNPCModelData();
+    if (modelData != null) {
+      modelData.addAdditionalModelData(compoundTag);
+    }
+    NavigationDataCapable<E> navigationData = getEasyNPCNavigationData();
     if (navigationData != null) {
       navigationData.addAdditionalNavigationData(compoundTag);
     }
-    ObjectiveData<E> objectiveData = getEasyNPCObjectiveData();
+    ObjectiveDataCapable<E> objectiveData = getEasyNPCObjectiveData();
     if (objectiveData != null) {
       objectiveData.addAdditionalObjectiveData(compoundTag);
     }
-    OwnerData<E> ownerData = getEasyNPCOwnerData();
+    OwnerDataCapable<E> ownerData = getEasyNPCOwnerData();
     if (ownerData != null) {
       ownerData.addAdditionalOwnerData(compoundTag);
     }
-    ProfessionData<E> professionData = getEasyNPCProfessionData();
+    PresetDataCapable<E> presetData = getEasyNPCPresetData();
+    if (presetData != null) {
+      presetData.addAdditionalPresetData(compoundTag);
+    }
+    ProfessionDataCapable<E> professionData = getEasyNPCProfessionData();
     if (professionData != null) {
       professionData.addAdditionalProfessionData(compoundTag);
     }
-    RenderData<E> renderData = getEasyNPCRenderData();
+    RenderDataCapable<E> renderData = getEasyNPCRenderData();
     if (renderData != null) {
       renderData.addAdditionalRenderData(compoundTag);
     }
-    SkinData<E> skinData = getEasyNPCSkinData();
+    SkinDataCapable<E> skinData = getEasyNPCSkinData();
     if (skinData != null) {
       skinData.addAdditionalSkinData(compoundTag);
     }
-    SoundData<E> soundData = getEasyNPCSoundData();
+    SoundDataCapable<E> soundData = getEasyNPCSoundData();
     if (soundData != null) {
       soundData.addAdditionalSoundData(compoundTag);
     }
-    SpawnerData<E> spawnerData = getEasyNPCSpawnerData();
-    if (spawnerData != null) {
-      spawnerData.addAdditionalSpawnerData(compoundTag);
+    StatusDataCapable<E> statusData = getEasyNPCStatusData();
+    if (statusData != null) {
+      statusData.addAdditionalStatusData(compoundTag);
     }
-    TradingData<E> tradingData = getEasyNPCTradingData();
+    TradingDataCapable<E> tradingData = getEasyNPCTradingData();
     if (tradingData != null) {
       tradingData.addAdditionalTradingData(compoundTag);
     }
-    VariantData<E> variantData = getEasyNPCVariantData();
+    VariantDataCapable<E> variantData = getEasyNPCVariantData();
     if (variantData != null) {
       variantData.addAdditionalVariantData(compoundTag);
     }
@@ -308,75 +332,83 @@ public interface EasyNPCBase<E extends PathfinderMob>
     Logger.INSTANCE.debug("Read additional save data for {} ...", this);
 
     // First read important data to ensure that all other data can be linked to the variant.
-    ConfigData<E> configData = getEasyNPCConfigData();
+    ConfigDataCapable<E> configData = getEasyNPCConfigData();
     if (configData != null) {
       configData.readAdditionalConfigData(compoundTag);
     }
-    VariantData<E> variantData = getEasyNPCVariantData();
+    VariantDataCapable<E> variantData = getEasyNPCVariantData();
     if (variantData != null) {
       variantData.readAdditionalVariantData(compoundTag);
     }
 
     // Read all other synced data.
-    ActionEventData<E> actionEventData = getEasyNPCActionEventData();
+    ActionEventDataCapable<E> actionEventData = getEasyNPCActionEventData();
     if (actionEventData != null) {
       actionEventData.readAdditionalActionData(compoundTag);
     }
-    AttackData<E> attackData = getEasyNPCAttackData();
+    AttackDataCapable<E> attackData = getEasyNPCAttackData();
     if (attackData != null) {
       attackData.readAdditionalAttackData(compoundTag);
     }
-    AttributeData<E> attributeData = getEasyNPCAttributeData();
+    AttributeDataCapable<E> attributeData = getEasyNPCAttributeData();
     if (attributeData != null) {
       attributeData.readAdditionalAttributeData(compoundTag);
     }
-    CustomAttributeData<E> customAttributeData = getEasyNPCCustomAttributeData();
+    CustomAttributeDataCapable<E> customAttributeData = getEasyNPCCustomAttributeData();
     if (customAttributeData != null) {
       customAttributeData.readAdditionalCustomAttributeData(compoundTag);
     }
-    DialogData<E> dialogData = getEasyNPCDialogData();
+    DialogDataCapable<E> dialogData = getEasyNPCDialogData();
     if (dialogData != null) {
       dialogData.readAdditionalDialogData(compoundTag);
     }
-    DisplayAttributeData<E> displayAttributeData = getEasyNPCDisplayAttributeData();
+    DisplayAttributeDataCapable<E> displayAttributeData = getEasyNPCDisplayAttributeData();
     if (displayAttributeData != null) {
       displayAttributeData.readAdditionalDisplayAttributeData(compoundTag);
     }
-    NavigationData<E> navigationData = getEasyNPCNavigationData();
+    ModelDataCapable<E> modelData = getEasyNPCModelData();
+    if (modelData != null) {
+      modelData.readAdditionalModelData(compoundTag);
+    }
+    NavigationDataCapable<E> navigationData = getEasyNPCNavigationData();
     if (navigationData != null) {
       navigationData.readAdditionalNavigationData(compoundTag);
     }
-    OwnerData<E> ownerData = getEasyNPCOwnerData();
+    OwnerDataCapable<E> ownerData = getEasyNPCOwnerData();
     if (ownerData != null) {
       ownerData.readAdditionalOwnerData(compoundTag);
     }
-    ProfessionData<E> professionData = getEasyNPCProfessionData();
+    PresetDataCapable<E> presetData = getEasyNPCPresetData();
+    if (presetData != null) {
+      presetData.readAdditionalPresetData(compoundTag);
+    }
+    ProfessionDataCapable<E> professionData = getEasyNPCProfessionData();
     if (professionData != null) {
       professionData.readAdditionalProfessionData(compoundTag);
     }
-    RenderData<E> renderData = getEasyNPCRenderData();
+    RenderDataCapable<E> renderData = getEasyNPCRenderData();
     if (renderData != null) {
       renderData.readAdditionalRenderData(compoundTag);
     }
-    SkinData<E> skinData = getEasyNPCSkinData();
+    SkinDataCapable<E> skinData = getEasyNPCSkinData();
     if (skinData != null) {
       skinData.readAdditionalSkinData(compoundTag);
     }
-    SoundData<E> soundData = getEasyNPCSoundData();
+    SoundDataCapable<E> soundData = getEasyNPCSoundData();
     if (soundData != null) {
       soundData.readAdditionalSoundData(compoundTag);
     }
-    SpawnerData<E> spawnerData = getEasyNPCSpawnerData();
-    if (spawnerData != null) {
-      spawnerData.readAdditionalSpawnerData(compoundTag);
+    StatusDataCapable<E> statusData = getEasyNPCStatusData();
+    if (statusData != null) {
+      statusData.readAdditionalStatusData(compoundTag);
     }
-    TradingData<E> tradingData = getEasyNPCTradingData();
+    TradingDataCapable<E> tradingData = getEasyNPCTradingData();
     if (tradingData != null) {
       tradingData.readAdditionalTradingData(compoundTag);
     }
 
     // Register Objectives after all data is loaded.
-    ObjectiveData<E> objectiveData = getEasyNPCObjectiveData();
+    ObjectiveDataCapable<E> objectiveData = getEasyNPCObjectiveData();
     if (objectiveData != null) {
       objectiveData.readAdditionalObjectiveData(compoundTag);
     }

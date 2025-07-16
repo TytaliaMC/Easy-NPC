@@ -24,7 +24,7 @@ import de.markusbordihn.easynpc.data.action.ActionDataSet;
 import de.markusbordihn.easynpc.data.dialog.DialogButtonEntry;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.DialogData;
+import de.markusbordihn.easynpc.entity.easynpc.data.DialogDataCapable;
 import de.markusbordihn.easynpc.entity.easynpc.handlers.ActionHandler;
 import de.markusbordihn.easynpc.network.message.NetworkMessageRecord;
 
@@ -77,7 +77,7 @@ public record ExecuteDialogButtonActionMessage(UUID uuid, UUID dialogId, UUID di
         }
 
         // Validate dialog data.
-        DialogData<?> dialogData = easyNPC.getEasyNPCDialogData();
+    DialogDataCapable<?> dialogData = easyNPC.getEasyNPCDialogData();
         if (dialogData == null) {
             Logger.INSTANCE.error("Dialog data for {} is not available for {}", easyNPC, serverPlayer);
             return;

@@ -21,8 +21,9 @@ package de.markusbordihn.easynpc.entity.easynpc.handlers;
 
 import de.markusbordihn.easynpc.data.display.DisplayAttributeType;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
-import de.markusbordihn.easynpc.entity.easynpc.data.DisplayAttributeData;
-import de.markusbordihn.easynpc.entity.easynpc.data.OwnerData;
+import de.markusbordihn.easynpc.entity.easynpc.data.DisplayAttributeDataCapable;
+import de.markusbordihn.easynpc.entity.easynpc.data.OwnerDataCapable;
+import java.util.Objects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.scores.Team;
@@ -35,7 +36,7 @@ public class VisibilityHandler {
 
   public static boolean handleIsInvisible(EasyNPC<?> easyNPC, boolean isInvisible) {
     // Use display attribute data to check if NPC is invisible.
-    DisplayAttributeData<?> displayAttributeData = easyNPC.getEasyNPCDisplayAttributeData();
+    DisplayAttributeDataCapable<?> displayAttributeData = easyNPC.getEasyNPCDisplayAttributeData();
     if (displayAttributeData != null
         && displayAttributeData.hasDisplayAttribute(DisplayAttributeType.VISIBLE)
         && !displayAttributeData.getDisplayBooleanAttribute(DisplayAttributeType.VISIBLE)) {
@@ -48,7 +49,7 @@ public class VisibilityHandler {
       EasyNPC<?> easyNPC, Player player, boolean isInvisibleToPlayers) {
 
     // Use display attribute data to check if NPC is invisible to player.
-    DisplayAttributeData<?> displayAttributeData = easyNPC.getEasyNPCDisplayAttributeData();
+    DisplayAttributeDataCapable<?> displayAttributeData = easyNPC.getEasyNPCDisplayAttributeData();
     if (displayAttributeData == null) {
       return isInvisibleToPlayers;
     }
@@ -104,7 +105,7 @@ public class VisibilityHandler {
     }
 
     // Check if NPC is visible to owner (overrides other visibility settings)
-    OwnerData<?> ownerData = easyNPC.getEasyNPCOwnerData();
+    OwnerDataCapable<?> ownerData = easyNPC.getEasyNPCOwnerData();
     if (displayAttributeData.hasDisplayAttribute(DisplayAttributeType.VISIBLE_TO_OWNER)
         && displayAttributeData.getDisplayBooleanAttribute(DisplayAttributeType.VISIBLE_TO_OWNER)
         && ownerData != null
