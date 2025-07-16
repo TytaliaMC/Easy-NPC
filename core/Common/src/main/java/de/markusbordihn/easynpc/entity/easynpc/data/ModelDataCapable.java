@@ -26,6 +26,7 @@ import de.markusbordihn.easynpc.data.synched.SynchedDataIndex;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import de.markusbordihn.easynpc.entity.easynpc.handlers.AttackHandler;
 import de.markusbordihn.easynpc.network.syncher.EntityDataSerializersManager;
+import de.markusbordihn.easynpc.debug.Logger;
 import java.util.EnumMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -50,7 +51,7 @@ public interface ModelDataCapable<T extends PathfinderMob>
 
   static void registerSyncedModelData(
       EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-    log.info("Registering Synched Model Data for {}.", entityClass.getSimpleName());
+    Logger.INSTANCE.info("Registering Synched Model Data for {}.", entityClass.getSimpleName());
     map.put(
         SynchedDataIndex.MODEL_POSE,
         SynchedEntityData.defineId(entityClass, EntityDataSerializersManager.MODEL_POSE));

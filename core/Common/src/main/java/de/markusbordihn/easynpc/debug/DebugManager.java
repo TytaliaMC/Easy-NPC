@@ -67,9 +67,9 @@ public final class DebugManager {
 
   public static void enableDebugLevel(String loggerName, boolean enable) {
     if (enable) {
-      DebugManager.setLogLevel(de.markusbordihn.easynpc.debug.Logger.LOGGER, Level.DEBUG);
+      DebugManager.setLogLevel(de.markusbordihn.easynpc.debug.Logger.LOG4J_INSTANCE, Level.DEBUG);
     } else {
-      DebugManager.setLogLevel(de.markusbordihn.easynpc.debug.Logger.LOGGER, Level.INFO);
+      DebugManager.setLogLevel(de.markusbordihn.easynpc.debug.Logger.LOG4J_INSTANCE, Level.INFO);
     }
   }
 

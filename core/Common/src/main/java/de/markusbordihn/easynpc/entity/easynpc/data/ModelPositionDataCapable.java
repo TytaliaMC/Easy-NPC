@@ -19,6 +19,7 @@
 
 package de.markusbordihn.easynpc.entity.easynpc.data;
 
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.data.model.ModelPartType;
 import de.markusbordihn.easynpc.data.position.CustomPosition;
 import de.markusbordihn.easynpc.data.synched.SynchedDataIndex;
@@ -39,7 +40,7 @@ public interface ModelPositionDataCapable<T extends PathfinderMob> extends EasyN
 
   static void registerSyncedModelPositionData(
       EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-    log.info("Registering Synched Model Position Data for {}.", entityClass.getSimpleName());
+    Logger.INSTANCE.info("Registering Synched Model Position Data for {}.", entityClass.getSimpleName());
     map.put(
         SynchedDataIndex.MODEL_POSITION,
         SynchedEntityData.defineId(entityClass, EntityDataSerializersManager.MODEL_PART_POSITION));

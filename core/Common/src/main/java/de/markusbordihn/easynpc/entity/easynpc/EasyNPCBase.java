@@ -104,7 +104,7 @@ public interface EasyNPCBase<E extends PathfinderMob>
   }
 
   default void registerEasyNPCDefaultVariant(Enum<?> variant) {
-    log.info("Register default variant for {} with variant {} ...", this, variant);
+    Logger.INSTANCE.info("Register default variant for {} with variant {} ...", this, variant);
     VariantDataCapable<E> variantData = getEasyNPCVariantData();
     if (variantData != null) {
       variantData.setVariantType(variant);
@@ -127,7 +127,7 @@ public interface EasyNPCBase<E extends PathfinderMob>
     // Skip next steps if NPC was already finalized.
     StatusDataCapable<?> statusData = getEasyNPCStatusData();
     if (statusData == null || !statusData.getStatusDataFlag(StatusDataType.FINALIZED)) {
-      log.debug("Register default data for {} ...", this);
+      Logger.INSTANCE.debug("Register default data for {} ...", this);
 
       // Register standard Objectives
       ObjectiveDataCapable<E> objectiveData = getEasyNPCObjectiveData();
@@ -141,7 +141,7 @@ public interface EasyNPCBase<E extends PathfinderMob>
         actionEventData.registerDefaultActionInteractionEvents();
       }
     } else {
-      log.debug("Skip default data registration for {} ...", this);
+      Logger.INSTANCE.debug("Skip default data registration for {} ...", this);
     }
 
     return spawnGroupData;
@@ -230,7 +230,7 @@ public interface EasyNPCBase<E extends PathfinderMob>
     }
 
     Logger.INSTANCE.info("Define custom server-side data for {} ...", this);
-    ActionEventData<E> actionEventData = getEasyNPCActionEventData();
+    ActionEventDataCapable<E> actionEventData = getEasyNPCActionEventData();
     if (actionEventData != null) {
       actionEventData.defineCustomActionData();
     }

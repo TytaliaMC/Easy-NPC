@@ -56,7 +56,6 @@ public class EasyNPCPresetEmptyItem extends Item {
 
   public static final String NAME = "easy_npc_preset_empty";
 
-  private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
   private static final String SPAWN_DATA_TAG = "SpawnData";
   private static final String ID_TAG = "id";
 
@@ -97,7 +96,7 @@ public class EasyNPCPresetEmptyItem extends Item {
     // Get preset data from EasyNPC
     PresetDataCapable<?> presetData = easyNPC.getEasyNPCPresetData();
     if (presetData == null) {
-      log.error("Can't export preset data from {}", easyNPC);
+      Logger.INSTANCE.error("Can't export preset data from {}", easyNPC);
       return ItemStack.EMPTY;
     }
 
@@ -153,7 +152,7 @@ public class EasyNPCPresetEmptyItem extends Item {
           SpawnData spawnData =
               SpawnData.CODEC
                   .parse(NbtOps.INSTANCE, compoundTag.getCompound(SPAWN_DATA_TAG))
-                  .resultOrPartial((string) -> log.warn("Invalid SpawnData: {}", string))
+                  .resultOrPartial((string) ->  Logger.INSTANCE.warn("Invalid SpawnData: {}", string))
                   .orElseGet(SpawnData::new);
           CompoundTag entitySpawnData = spawnData.getEntityToSpawn();
           if (entitySpawnData.contains(ID_TAG)) {

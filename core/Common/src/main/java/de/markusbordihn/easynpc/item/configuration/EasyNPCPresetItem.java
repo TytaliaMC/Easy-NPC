@@ -140,7 +140,7 @@ public class EasyNPCPresetItem extends Item {
 
     // Verify that we have preset and entity type data
     if (!hasPreset(itemStack) || !hasEntityType(itemStack)) {
-      log.error("No valid preset data found in {}!", itemStack);
+      Logger.INSTANCE.error("No valid preset data found in {}!", itemStack);
       return false;
     }
 
@@ -203,7 +203,7 @@ public class EasyNPCPresetItem extends Item {
     if (blockEntity instanceof SpawnerBlockEntity spawnerBlockEntity) {
       BaseSpawner baseSpawner = spawnerBlockEntity.getSpawner();
       SpawnData spawnData = new SpawnData(getPreset(itemStack), Optional.empty());
-      log.debug("Set spawn data {} for spawner {} at {}", spawnData, spawnerBlockEntity, blockPos);
+      Logger.INSTANCE.debug("Set spawn data {} for spawner {} at {}", spawnData, spawnerBlockEntity, blockPos);
       if (!SpawnerUtils.setNextSpawnData(baseSpawner, level, blockPos, spawnData)) {
         return InteractionResult.FAIL;
       }
@@ -216,7 +216,7 @@ public class EasyNPCPresetItem extends Item {
     if (blockEntity instanceof EasyNPCSpawnerBlockEntity easyNPCSpawnerBlockEntity) {
       BaseEasyNPCSpawner baseEasyNPCSpawner = easyNPCSpawnerBlockEntity.getSpawner();
       SpawnData spawnData = new SpawnData(getPreset(itemStack), Optional.empty());
-      log.debug(
+      Logger.INSTANCE.debug(
           "Set spawn data {} for base NPC spawner {} at {}",
           spawnData,
           easyNPCSpawnerBlockEntity,

@@ -20,6 +20,8 @@
 package de.markusbordihn.easynpc.handler;
 
 import de.markusbordihn.easynpc.data.objective.ObjectiveDataEntry;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import de.markusbordihn.easynpc.entity.easynpc.data.ObjectiveDataCapable;

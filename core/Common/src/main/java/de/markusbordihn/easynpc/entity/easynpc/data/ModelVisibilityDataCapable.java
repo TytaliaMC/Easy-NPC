@@ -19,6 +19,7 @@
 
 package de.markusbordihn.easynpc.entity.easynpc.data;
 
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.data.model.ModelPartType;
 import de.markusbordihn.easynpc.data.synched.SynchedDataIndex;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
@@ -38,7 +39,7 @@ public interface ModelVisibilityDataCapable<T extends PathfinderMob> extends Eas
 
   static void registerSynchedModelVisibilityData(
       EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-    log.info("Registering Synched Model Visibility Data for {}.", entityClass.getSimpleName());
+    Logger.INSTANCE.info("Registering Synched Model Visibility Data for {}.", entityClass.getSimpleName());
     map.put(
         SynchedDataIndex.MODEL_VISIBILITY,
         SynchedEntityData.defineId(

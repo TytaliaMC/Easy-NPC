@@ -19,6 +19,7 @@
 
 package de.markusbordihn.easynpc.io;
 
+import de.markusbordihn.easynpc.debug.Logger;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class BackupDataFiles {
     // Prepare backup data folder for today
     Path backupDataFolder = getBackupDataFolder();
     if (backupDataFolder == null) {
-      log.error("Backup data folder is null, unable to register backup data!");
+      Logger.INSTANCE.error("Backup data folder is null, unable to register backup data!");
     }
   }
 

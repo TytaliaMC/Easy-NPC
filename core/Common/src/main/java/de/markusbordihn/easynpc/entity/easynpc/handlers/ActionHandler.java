@@ -103,11 +103,11 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
       String command, Entity entity, int permissionLevel, boolean debug) {
     MinecraftServer minecraftServer = entity.getServer();
     if (minecraftServer == null) {
-      log.error("No Minecraft server found for entity {}", entity);
+        Logger.INSTANCE.error("No Minecraft server found for entity {}", entity);
       return;
     }
     if (isBlockedUnsafeNPCCommand(command)) {
-      log.warn(
+        Logger.INSTANCE.warn(
           "Blocked unsafe entity command {} for {} with permission level {}!",
           command,
           entity,
@@ -117,7 +117,7 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
     if (command.startsWith("/")) {
       command = command.substring(1);
     }
-    log.debug(
+      Logger.INSTANCE.debug(
         "Execute Entity {} Command: \"{}\" with permission level {}",
         entity,
         command,
@@ -141,11 +141,11 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
       String command, ServerPlayer serverPlayer, int permissionLevel, boolean debug) {
     MinecraftServer minecraftServer = serverPlayer.getServer();
     if (minecraftServer == null) {
-      log.error("No Minecraft server found for player {}", serverPlayer);
+        Logger.INSTANCE.error("No Minecraft server found for player {}", serverPlayer);
       return;
     }
     if (isBlockedUnsafeNPCCommand(command)) {
-      log.warn(
+        Logger.INSTANCE.warn(
           "Blocked unsafe player command {} for {} with permission level {}!",
           command,
           serverPlayer,
@@ -155,7 +155,7 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
     if (command.startsWith("/")) {
       command = command.substring(1);
     }
-    log.debug(
+      Logger.INSTANCE.debug(
         "Execute Player {} Command: \"{}\" with permission level {}",
         serverPlayer,
         command,
@@ -403,7 +403,7 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
         if (blockPos != null && !blockPos.equals(BlockPos.ZERO)) {
           this.interactWithBlock(blockPos);
         } else {
-          log.error("No block position found for action {}", actionDataEntry);
+            Logger.INSTANCE.error("No block position found for action {}", actionDataEntry);
         }
         break;
       case OPEN_DEFAULT_DIALOG:
@@ -417,11 +417,11 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
         if (tradingData != null) {
           tradingData.openTradingScreen(serverPlayer);
         } else {
-          log.error("No trading data found for action {}", actionDataEntry);
+            Logger.INSTANCE.error("No trading data found for action {}", actionDataEntry);
         }
         break;
       default:
-        log.warn(
+          Logger.INSTANCE.warn(
             "Unknown action type {} for action {}",
             actionDataEntry.actionDataType(),
             actionDataEntry);
@@ -437,7 +437,7 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
     if (dialogData != null) {
       dialogData.openDefaultDialog(serverPlayer);
     } else {
-      log.error("No dialog data found for action {}", actionDataEntry);
+        Logger.INSTANCE.error("No dialog data found for action {}", actionDataEntry);
       serverPlayer.closeContainer();
     }
   }
@@ -455,7 +455,7 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
       UUID dialogId = dialogData.getDialogId(dialogLabel);
       dialogData.openDialog(serverPlayer, dialogId);
     } else {
-      log.error("Unknown dialog label {} for action {}", dialogLabel, actionDataEntry);
+        Logger.INSTANCE.error("Unknown dialog label {} for action {}", dialogLabel, actionDataEntry);
       serverPlayer.closeContainer();
     }
   }
@@ -466,12 +466,12 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
     }
     ActionEventDataCapable<E> actionEventData = this.getEasyNPCActionEventData();
     if (actionEventData == null) {
-      log.error("No action event data found for action {}", actionDataEntry);
+        Logger.INSTANCE.error("No action event data found for action {}", actionDataEntry);
       return;
     }
     int userPermissionLevel = actionDataEntry.permissionLevel();
     if (userPermissionLevel > actionEventData.getActionPermissionLevel()) {
-      log.warn(
+        Logger.INSTANCE.warn(
           "User permission level {} is lower than action permission level {} for action {}",
           actionEventData.getActionPermissionLevel(),
           userPermissionLevel,
@@ -499,7 +499,7 @@ public interface ActionHandler<E extends PathfinderMob> extends EasyNPC<E> {
     }
     ActionEventDataCapable<E> actionEventData = this.getEasyNPCActionEventData();
     if (actionEventData == null) {
-      log.error("No action event data found for action {}", actionDataEntry);
+        Logger.INSTANCE.error("No action event data found for action {}", actionDataEntry);
       return;
     }
     int ownerPermissionLevel = actionEventData.getActionPermissionLevel();

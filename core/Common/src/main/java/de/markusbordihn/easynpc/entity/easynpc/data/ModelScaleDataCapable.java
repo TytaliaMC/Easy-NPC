@@ -19,6 +19,7 @@
 
 package de.markusbordihn.easynpc.entity.easynpc.data;
 
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.data.model.ModelPartType;
 import de.markusbordihn.easynpc.data.scale.CustomScale;
 import de.markusbordihn.easynpc.data.synched.SynchedDataIndex;
@@ -40,7 +41,7 @@ public interface ModelScaleDataCapable<T extends PathfinderMob> extends EasyNPC<
 
   static void registerSynchedModelScaleData(
       EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-    log.info("Registering Synched Model Scale Data for {}.", entityClass.getSimpleName());
+    Logger.INSTANCE.info("Registering Synched Model Scale Data for {}.", entityClass.getSimpleName());
     map.put(
         SynchedDataIndex.MODEL_SCALE,
         SynchedEntityData.defineId(entityClass, EntityDataSerializersManager.MODEL_PART_SCALE));

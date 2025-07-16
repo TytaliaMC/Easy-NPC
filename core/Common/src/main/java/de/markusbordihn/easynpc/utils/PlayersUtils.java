@@ -123,16 +123,16 @@ public class PlayersUtils {
 
     // Create sessions request and parse result, if any.
     String sessionURL = String.format(SESSION_PROFILE_URL, userUUID);
-    log.debug("Requesting player skin from session URL: {}", sessionURL);
+    Logger.INSTANCE.debug("Requesting player skin from session URL: {}", sessionURL);
     try {
       String data = IOUtils.toString(new URL(sessionURL), StandardCharsets.UTF_8);
       if (data == null || data.isEmpty()) {
         Logger.INSTANCE.error("Unable to get user texture with {}", sessionURL);
         return null;
       }
-      log.debug("Received session response data for {}: {}", userUUID, data);
+      Logger.INSTANCE.debug("Received session response data for {}: {}", userUUID, data);
       String textureUrl = getUserTextureFromSessionResponse(data);
-      log.debug("Parsed texture URL for {}: {}", userUUID, textureUrl);
+      Logger.INSTANCE.debug("Parsed texture URL for {}: {}", userUUID, textureUrl);
       return textureUrl;
     } catch (IOException ioException) {
       Logger.INSTANCE.error("Unable to get user texture with {}:", sessionURL, ioException);

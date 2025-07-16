@@ -13,29 +13,29 @@ public enum Logger {
 
     INSTANCE;
 
-    public static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(Constants.LOG_NAME);
+    public static final org.apache.logging.log4j.Logger LOG4J_INSTANCE = LogManager.getLogger(Constants.LOG_NAME);
 
     public void info(final String message, final Object... args) {
         if (GlobalConfig.ENABLE_LOG_INFO) {
-            LOGGER.info(message, args);
+            LOG4J_INSTANCE.info(message, args);
         }
     }
 
     public void warn(final String message, final Object... args) {
         if (GlobalConfig.ENABLE_LOG_WARN) {
-            LOGGER.warn(message, args);
+            LOG4J_INSTANCE.warn(message, args);
         }
     }
 
     public void warn(final Marker marker, final Message message, final Throwable throwable) {
         if (GlobalConfig.ENABLE_LOG_WARN) {
-            LOGGER.warn(marker, message, throwable);
+            LOG4J_INSTANCE.warn(marker, message, throwable);
         }
     }
 
     public void debug(final String message, final Object... args) {
         if (GlobalConfig.ENABLE_LOG_DEBUG) {
-            LOGGER.debug(message, args);
+            LOG4J_INSTANCE.debug(message, args);
         }
     }
 
@@ -55,8 +55,8 @@ public enum Logger {
         Throwable throwable = null;
         final Object[] logArgs = new Object[args.length];
         for (int i = 0; i < args.length; i++) {
-            if (args[i] instanceof Throwable && throwable == null) {
-                throwable = (Throwable) args[i];
+            if (args[i] instanceof Throwable throwable1 && throwable == null) {
+                throwable = throwable1;
                 // Replace the argument with an empty string or another placeholder.
                 logArgs[i] = "";
             } else {
@@ -65,25 +65,25 @@ public enum Logger {
         }
         if (throwable != null) {
             // If an exception is present, log it separately.
-            LOGGER.error(message, throwable);
+            LOG4J_INSTANCE.error(message, throwable);
         } else {
-            LOGGER.error(message, logArgs);
+            LOG4J_INSTANCE.error(message, logArgs);
         }
 
     }
 
 
     public boolean isTraceEnabled() {
-        return LOGGER.isTraceEnabled();
+        return LOG4J_INSTANCE.isTraceEnabled();
     }
 
     public void trace(final String message, final Object... args) {
-        if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace(message, args);
+        if (LOG4J_INSTANCE.isTraceEnabled()) {
+            LOG4J_INSTANCE.trace(message, args);
         }
     }
 
     public boolean isDebugEnabled() {
-        return LOGGER.isDebugEnabled();
+        return LOG4J_INSTANCE.isDebugEnabled();
     }
 }

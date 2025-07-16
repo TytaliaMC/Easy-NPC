@@ -38,7 +38,7 @@ public interface AttributeDataCapable<E extends PathfinderMob> extends EasyNPC<E
 
     static void registerSyncedAttributeData(
         EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-        Logger.LOGGER.info("- Registering Synched Attribute Data for {}.", entityClass.getSimpleName());
+        Logger.INSTANCE.info("- Registering Synched Attribute Data for {}.", entityClass.getSimpleName());
         map.put(
                 SynchedDataIndex.ENTITY_ATTRIBUTES,
                 SynchedEntityData.defineId(entityClass, EntityDataSerializersManager.ENTITY_ATTRIBUTES));

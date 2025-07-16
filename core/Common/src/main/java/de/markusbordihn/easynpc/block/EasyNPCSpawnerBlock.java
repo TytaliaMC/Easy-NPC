@@ -21,6 +21,7 @@ package de.markusbordihn.easynpc.block;
 
 import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.block.entity.EasyNPCSpawnerBlockEntity;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import de.markusbordihn.easynpc.data.spawner.SpawnerType;
 import java.util.UUID;
 import de.markusbordihn.easynpc.debug.Logger;
@@ -33,6 +34,7 @@ import net.minecraft.world.level.block.SpawnerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.block.state.StateDefinition;
 
 import java.util.UUID;
 
@@ -40,7 +42,6 @@ public class EasyNPCSpawnerBlock extends SpawnerBlock {
 
   public static final EnumProperty<SpawnerType> SPAWNER_TYPE =
       EnumProperty.create("spawner_type", SpawnerType.class);
-  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
   public EasyNPCSpawnerBlock(final Properties properties, final SpawnerType spawnerType) {
     super(properties);

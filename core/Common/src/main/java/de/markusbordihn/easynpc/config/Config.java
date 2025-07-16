@@ -176,7 +176,7 @@ public class Config {
       try {
         return Short.parseShort(properties.getProperty(key).trim());
       } catch (Exception e) {
-        log.error("{} Failed to parse Short value for key {}:", LOG_PREFIX, key, e);
+        Logger.INSTANCE.error("{} Failed to parse Short value for key {}:", LOG_PREFIX, key, e);
       }
     }
     properties.setProperty(key, Short.toString(defaultValue));

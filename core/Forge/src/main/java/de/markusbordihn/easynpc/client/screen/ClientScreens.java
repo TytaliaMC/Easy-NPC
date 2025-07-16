@@ -24,6 +24,7 @@ import de.markusbordihn.easynpc.client.screen.dialog.DialogScreenWrapper;
 import de.markusbordihn.easynpc.menu.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import de.markusbordihn.easynpc.debug.Logger;
 
 public class ClientScreens {
 

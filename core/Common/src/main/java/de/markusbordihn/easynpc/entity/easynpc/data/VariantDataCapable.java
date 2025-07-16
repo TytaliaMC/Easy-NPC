@@ -19,6 +19,7 @@
 
 package de.markusbordihn.easynpc.entity.easynpc.data;
 
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.data.synched.SynchedDataIndex;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import de.markusbordihn.easynpc.utils.TextUtils;
@@ -42,7 +43,7 @@ public interface VariantDataCapable<T extends PathfinderMob> extends EasyNPC<T> 
 
   static void registerSyncedVariantData(
       EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-    log.info("- Registering Synched Variant Type Data for {}.", entityClass.getSimpleName());
+    Logger.INSTANCE.info("- Registering Synched Variant Type Data for {}.", entityClass.getSimpleName());
     map.put(
         SynchedDataIndex.VARIANT_TYPE,
         SynchedEntityData.defineId(entityClass, EntityDataSerializers.STRING));
@@ -66,7 +67,7 @@ public interface VariantDataCapable<T extends PathfinderMob> extends EasyNPC<T> 
     if (variantType != null) {
       setVariantType(variantType);
     } else {
-      log.error("Unknown variant {} for {}", name, this);
+      Logger.INSTANCE.error("Unknown variant {} for {}", name, this);
     }
   }
 

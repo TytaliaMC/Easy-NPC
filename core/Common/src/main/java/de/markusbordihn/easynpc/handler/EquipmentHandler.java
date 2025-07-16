@@ -19,6 +19,7 @@
 
 package de.markusbordihn.easynpc.handler;
 
+import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import net.minecraft.world.InteractionHand;
@@ -47,7 +48,7 @@ public class EquipmentHandler {
   }
 
   public static boolean setEquipmentSlotItem(
-      EasyNPC<?> easyNPC, EquipmentSlot equipmentSlot, ItemStack itemStack) {
+          EasyNPC<?> easyNPC, EquipmentSlot equipmentSlot, ItemStack itemStack) {
     if (easyNPC == null || equipmentSlot == null || itemStack == null) {
       Logger.INSTANCE.error("[{}] Error setting owner ", easyNPC);
       return false;
@@ -69,25 +70,6 @@ public class EquipmentHandler {
       default:
         Logger.INSTANCE.error("[{}] Equipment slot {} is not supported!", easyNPC, equipmentSlot);
         return false;
-    }
-
-    // Handle smart Animations based on the used item.
-    ModelData<?> modelData = easyNPC.getEasyNPCModelData();
-    Item item = itemStack.getItem();
-    if (modelData != null
-        && modelData.supportsSmartAnimations()
-        && modelData.getModelSupportsSmartAnimations()) {
-      boolean hasItemInMainHand =
-          !livingEntity.getMainHandItem().isEmpty() || !livingEntity.getOffhandItem().isEmpty();
-      if (hasItemInMainHand
-          && !Items.AIR.equals(item)
-          && !SmartAnimations.itemSupportSmartAnimation(item)) {
-        log.debug("[{}] Disable smart animations for item {}", easyNPC, item);
-        modelData.setItemSupportsSmartAnimations(false);
-      } else if (!hasItemInMainHand && !modelData.getItemSupportsSmartAnimations()) {
-        log.debug("[{}] Re-Enable smart animations for item {}", easyNPC, item);
-        modelData.setItemSupportsSmartAnimations(true);
-      }
     }
 
     return true;

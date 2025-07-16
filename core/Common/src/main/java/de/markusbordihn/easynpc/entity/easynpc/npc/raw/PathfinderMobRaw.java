@@ -84,7 +84,6 @@ public class PathfinderMobRaw extends PathfinderMob implements EasyNPCBase<Pathf
 
   public static final String ID = "pathfinder_mob_raw";
 
-  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
   protected static final EnumMap<SynchedDataIndex, EntityDataAccessor<?>> entityDataAccessorMap =
       new EnumMap<>(SynchedDataIndex.class);
   private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);

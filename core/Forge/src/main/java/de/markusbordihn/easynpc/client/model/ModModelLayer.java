@@ -22,7 +22,6 @@ package de.markusbordihn.easynpc.client.model;
 import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.client.model.custom.FairyModel;
 import de.markusbordihn.easynpc.client.model.custom.OrcModel;
-import de.markusbordihn.easynpc.client.model.standard.StandardAllayModel;
 import de.markusbordihn.easynpc.debug.Logger;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

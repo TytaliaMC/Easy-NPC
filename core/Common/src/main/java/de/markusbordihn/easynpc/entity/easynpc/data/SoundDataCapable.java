@@ -27,6 +27,7 @@ import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import de.markusbordihn.easynpc.network.syncher.EntityDataSerializersManager;
 import net.minecraft.core.BlockPos;
+import java.util.EnumMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
