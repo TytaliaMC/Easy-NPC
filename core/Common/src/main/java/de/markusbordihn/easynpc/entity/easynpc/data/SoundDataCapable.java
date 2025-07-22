@@ -23,11 +23,10 @@ import de.markusbordihn.easynpc.data.sound.SoundDataEntry;
 import de.markusbordihn.easynpc.data.sound.SoundDataSet;
 import de.markusbordihn.easynpc.data.sound.SoundType;
 import de.markusbordihn.easynpc.data.synched.SynchedDataIndex;
-import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.EasyNPC;
 import de.markusbordihn.easynpc.network.syncher.EntityDataSerializersManager;
-import net.minecraft.core.BlockPos;
 import java.util.EnumMap;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -40,157 +39,157 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public interface SoundDataCapable<E extends PathfinderMob> extends EasyNPC<E> {
 
-    String EASY_NPC_DATA_SOUND_DATA_TAG = "SoundData";
+  String EASY_NPC_DATA_SOUND_DATA_TAG = "SoundData";
 
-    static void registerSyncedSoundData(
-        EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
-        Logger.INSTANCE.info("- Registering Synched Sound Data for {}.", entityClass.getSimpleName());
-        map.put(
-                SynchedDataIndex.SOUND_DATA_SET,
-                SynchedEntityData.defineId(entityClass, EntityDataSerializersManager.SOUND_DATA_SET));
+  static void registerSyncedSoundData(
+      EnumMap<SynchedDataIndex, EntityDataAccessor<?>> map, Class<? extends Entity> entityClass) {
+    log.info("- Registering Synched Sound Data for {}.", entityClass.getSimpleName());
+    map.put(
+        SynchedDataIndex.SOUND_DATA_SET,
+        SynchedEntityData.defineId(entityClass, EntityDataSerializersManager.SOUND_DATA_SET));
+  }
+
+  default SoundDataSet getSoundDataSet() {
+    return getSynchedEntityData(SynchedDataIndex.SOUND_DATA_SET);
+  }
+
+  default void setSoundDataSet(SoundDataSet soundDataSet) {
+    setSynchedEntityData(SynchedDataIndex.SOUND_DATA_SET, soundDataSet);
+  }
+
+  default SoundDataSet getDefaultSoundDataSet(SoundDataSet soundDataSet, String variantName) {
+    return soundDataSet;
+  }
+
+  default void refreshSoundDataSet() {
+    SoundDataSet soundDataSet = this.getSoundDataSet();
+    if (soundDataSet == null || soundDataSet.isEmpty()) {
+      clearSoundDataSet();
+      setSoundDataSet(soundDataSet);
     }
+  }
 
-    default SoundDataSet getSoundDataSet() {
-        return getSynchedEntityData(SynchedDataIndex.SOUND_DATA_SET);
+  default void clearSoundDataSet() {
+    setSoundDataSet(new SoundDataSet());
+  }
+
+  default boolean hasDefaultSound(SoundType soundType) {
+    return this.getSoundDataSet().hasSound(soundType);
+  }
+
+  default SoundDataEntry getDefaultSound(SoundType soundType) {
+    return this.getSoundDataSet().getSound(soundType);
+  }
+
+  default SoundEvent getDefaultSoundEvent(SoundType soundType) {
+    if (!this.hasDefaultSound(soundType)) {
+      return null;
     }
+    return this.getDefaultSound(soundType).getSoundEvent();
+  }
 
-    default void setSoundDataSet(SoundDataSet soundDataSet) {
-        setSynchedEntityData(SynchedDataIndex.SOUND_DATA_SET, soundDataSet);
+  default void playDefaultTradeUpdatedSound(boolean yesSound) {
+    if (yesSound) {
+      this.playDefaultSound(SoundType.TRADE_YES);
+    } else {
+      this.playDefaultSound(SoundType.TRADE_NO);
     }
+  }
 
-    default SoundDataSet getDefaultSoundDataSet(SoundDataSet soundDataSet, String variantName) {
-        return soundDataSet;
-    }
-
-    default void refreshSoundDataSet() {
-        SoundDataSet soundDataSet = this.getSoundDataSet();
-        if (soundDataSet == null || soundDataSet.isEmpty()) {
-            clearSoundDataSet();
-            setSoundDataSet(soundDataSet);
-        }
-    }
-
-    default void clearSoundDataSet() {
-        setSoundDataSet(new SoundDataSet());
-    }
-
-    default boolean hasDefaultSound(SoundType soundType) {
-        return this.getSoundDataSet().hasSound(soundType);
-    }
-
-    default SoundDataEntry getDefaultSound(SoundType soundType) {
-        return this.getSoundDataSet().getSound(soundType);
-    }
-
-    default SoundEvent getDefaultSoundEvent(SoundType soundType) {
-        if (!this.hasDefaultSound(soundType)) {
-            return null;
-        }
-        return this.getDefaultSound(soundType).getSoundEvent();
-    }
-
-    default void playDefaultTradeUpdatedSound(boolean yesSound) {
-        if (yesSound) {
-            this.playDefaultSound(SoundType.TRADE_YES);
-        } else {
-            this.playDefaultSound(SoundType.TRADE_NO);
-        }
-    }
-
-    default void playDefaultAmbientSound() {
+  default void playDefaultAmbientSound() {
     OwnerDataCapable<E> ownerData = this.getEasyNPCOwnerData();
-        if (ownerData != null && ownerData.hasOwner()) {
-            if (hasDefaultSound(SoundType.AMBIENT_TAMED) && EasyNPC.randomNumber.nextInt(4) == 0) {
-                this.playDefaultSound(SoundType.AMBIENT_TAMED);
-                return;
-            } else if (hasDefaultSound(SoundType.AMBIENT)) {
-                this.playDefaultSound(SoundType.AMBIENT);
-                return;
-            }
-        }
-
-        if (hasDefaultSound(SoundType.AMBIENT_STRAY)) {
-            this.playDefaultSound(SoundType.AMBIENT_STRAY);
-        } else {
-            this.playDefaultSound(SoundType.AMBIENT);
-        }
+    if (ownerData != null && ownerData.hasNPCOwner()) {
+      if (hasDefaultSound(SoundType.AMBIENT_TAMED) && EasyNPC.randomNumber.nextInt(4) == 0) {
+        this.playDefaultSound(SoundType.AMBIENT_TAMED);
+        return;
+      } else if (hasDefaultSound(SoundType.AMBIENT)) {
+        this.playDefaultSound(SoundType.AMBIENT);
+        return;
+      }
     }
 
-    default void playDefaultHurtSound(DamageSource damageSource) {
-        this.playDefaultSound(SoundType.HURT);
+    if (hasDefaultSound(SoundType.AMBIENT_STRAY)) {
+      this.playDefaultSound(SoundType.AMBIENT_STRAY);
+    } else {
+      this.playDefaultSound(SoundType.AMBIENT);
     }
+  }
 
-    default void playDefaultStepSound(BlockPos blockPos, BlockState blockState) {
-        this.playDefaultSound(SoundType.STEP);
-    }
+  default void playDefaultHurtSound(DamageSource damageSource) {
+    this.playDefaultSound(SoundType.HURT);
+  }
 
-    default void playDefaultSound(SoundType soundType) {
+  default void playDefaultStepSound(BlockPos blockPos, BlockState blockState) {
+    this.playDefaultSound(SoundType.STEP);
+  }
+
+  default void playDefaultSound(SoundType soundType) {
     Level level = this.getEntityLevel();
-        Entity entity = this.getEntity();
-        if (soundType == null
-                || level == null
-                || entity == null
-                || entity.isSilent()
-                || !this.hasDefaultSound(soundType)) {
-            return;
-        }
-        SoundDataEntry soundDataEntry = this.getDefaultSound(soundType);
-        if (soundDataEntry.isEnabled() && soundDataEntry.getVolume() > 0.0F) {
-            SoundEvent soundEvent = soundDataEntry.getSoundEvent();
-            if (soundEvent != null) {
-                entity.playSound(
-                        soundEvent,
-                        soundDataEntry.getVolume(),
-                        soundDataEntry.getPitch()
-                                + (EasyNPC.randomNumber.nextFloat() - EasyNPC.randomNumber.nextFloat()) * 0.3F);
-            }
-        }
+    Entity entity = this.getEntity();
+    if (soundType == null
+        || level == null
+        || entity == null
+        || entity.isSilent()
+        || !this.hasDefaultSound(soundType)) {
+      return;
     }
-
-    default SoundEvent getDefaultDeathSound() {
-        return this.getDefaultSoundEvent(SoundType.DEATH);
+    SoundDataEntry soundDataEntry = this.getDefaultSound(soundType);
+    if (soundDataEntry.isEnabled() && soundDataEntry.getVolume() > 0.0F) {
+      SoundEvent soundEvent = soundDataEntry.getSoundEvent();
+      if (soundEvent != null) {
+        entity.playSound(
+            soundEvent,
+            soundDataEntry.getVolume(),
+            soundDataEntry.getPitch()
+                + (EasyNPC.randomNumber.nextFloat() - EasyNPC.randomNumber.nextFloat()) * 0.3F);
+      }
     }
+  }
 
-    default void defineSynchedSoundData() {
-        defineSynchedEntityData(SynchedDataIndex.SOUND_DATA_SET, new SoundDataSet());
-    }
+  default SoundEvent getDefaultDeathSound() {
+    return this.getDefaultSoundEvent(SoundType.DEATH);
+  }
 
-    default void registerDefaultSoundData(Enum<?> variant) {
-        SoundDataSet soundDataSet = this.getSoundDataSet();
-        if (soundDataSet == null || soundDataSet.isEmpty()) {
-            this.setSoundDataSet(this.getDefaultSoundDataSet(new SoundDataSet(), variant.name()));
+  default void defineSynchedSoundData() {
+    defineSynchedEntityData(SynchedDataIndex.SOUND_DATA_SET, new SoundDataSet());
+  }
+
+  default void registerDefaultSoundData(Enum<?> variant) {
+    SoundDataSet soundDataSet = this.getSoundDataSet();
+    if (soundDataSet == null || soundDataSet.isEmpty()) {
+      this.setSoundDataSet(this.getDefaultSoundDataSet(new SoundDataSet(), variant.name()));
     } else if (soundDataSet.isEmpty()) {
       this.setSoundDataSet(this.getDefaultSoundDataSet(soundDataSet, variant.name()));
-        }
     }
+  }
 
-    default void addAdditionalSoundData(CompoundTag compoundTag) {
-        CompoundTag soundDataTag = new CompoundTag();
+  default void addAdditionalSoundData(CompoundTag compoundTag) {
+    CompoundTag soundDataTag = new CompoundTag();
 
-        SoundDataSet soundDataSet = this.getSoundDataSet();
-        if (soundDataSet != null && !soundDataSet.isEmpty()) {
-            soundDataSet.save(soundDataTag);
-        } else {
+    SoundDataSet soundDataSet = this.getSoundDataSet();
+    if (soundDataSet != null && !soundDataSet.isEmpty()) {
+      soundDataSet.save(soundDataTag);
+    } else {
       VariantDataCapable<E> variantData = this.getEasyNPCVariantData();
-            SoundDataSet defaultSoundDataSet =
-                    this.getDefaultSoundDataSet(
+      SoundDataSet defaultSoundDataSet =
+          this.getDefaultSoundDataSet(
               new SoundDataSet(), variantData != null ? variantData.getVariantType().name() : "");
-            defaultSoundDataSet.save(soundDataTag);
-        }
-
-        compoundTag.put(EASY_NPC_DATA_SOUND_DATA_TAG, soundDataTag);
+      defaultSoundDataSet.save(soundDataTag);
     }
 
-    default void readAdditionalSoundData(CompoundTag compoundTag) {
-        if (!compoundTag.contains(EASY_NPC_DATA_SOUND_DATA_TAG)) {
-            return;
-        }
+    compoundTag.put(EASY_NPC_DATA_SOUND_DATA_TAG, soundDataTag);
+  }
 
-        CompoundTag soundDataTag = compoundTag.getCompound(EASY_NPC_DATA_SOUND_DATA_TAG);
-
-        if (soundDataTag.contains(SoundDataSet.DATA_SOUND_DATA_SET_TAG)) {
-            SoundDataSet soundDataSet = new SoundDataSet(soundDataTag);
-            this.setSoundDataSet(soundDataSet);
-        }
+  default void readAdditionalSoundData(CompoundTag compoundTag) {
+    if (!compoundTag.contains(EASY_NPC_DATA_SOUND_DATA_TAG)) {
+      return;
     }
+
+    CompoundTag soundDataTag = compoundTag.getCompound(EASY_NPC_DATA_SOUND_DATA_TAG);
+
+    if (soundDataTag.contains(SoundDataSet.DATA_SOUND_DATA_SET_TAG)) {
+      SoundDataSet soundDataSet = new SoundDataSet(soundDataTag);
+      this.setSoundDataSet(soundDataSet);
+    }
+  }
 }

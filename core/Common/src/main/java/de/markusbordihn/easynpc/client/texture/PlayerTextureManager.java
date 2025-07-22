@@ -22,25 +22,26 @@ package de.markusbordihn.easynpc.client.texture;
 import de.markusbordihn.easynpc.Constants;
 import de.markusbordihn.easynpc.data.skin.SkinModel;
 import de.markusbordihn.easynpc.data.skin.SkinType;
-import de.markusbordihn.easynpc.debug.Logger;
 import de.markusbordihn.easynpc.entity.easynpc.data.SkinDataCapable;
 import de.markusbordihn.easynpc.io.PlayerSkinDataFiles;
 import de.markusbordihn.easynpc.network.components.TextComponent;
 import de.markusbordihn.easynpc.utils.PlayersUtils;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
-
 import java.io.File;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PlayerTextureManager {
 
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
   private static final HashMap<TextureModelKey, ResourceLocation> textureCache = new HashMap<>();
   private static final HashMap<TextureModelKey, SkinType> textureSkinTypeCache = new HashMap<>();
   private static final HashSet<UUID> textureReloadProtection = new HashSet<>();
@@ -119,26 +120,31 @@ public class PlayerTextureManager {
 
     // Check if we got a valid skin URL
     if (playerSkinUrl == null || playerSkinUrl.isEmpty()) {
-      Logger.INSTANCE.error("{} Unable to get player skin URL for UUID: {}", LOG_PREFIX, playerUUID);
+      log.error("{} Unable to get player skin URL for UUID: {}", LOG_PREFIX, playerUUID);
       return null;
     }
 
-    Logger.INSTANCE.debug("{} Got player skin URL for {}: {}", LOG_PREFIX, playerUUID, playerSkinUrl);
+    log.debug("{} Got player skin URL for {}: {}", LOG_PREFIX, playerUUID, playerSkinUrl);
 
     // Validate the skin URL and perform some basic sanity checks and
     // process the remote texture.
-    Logger.INSTANCE.debug("{} Starting remote texture download for {}: {}", LOG_PREFIX, playerUUID, playerSkinUrl);
+    log.debug(
+        "{} Starting remote texture download for {}: {}", LOG_PREFIX, playerUUID, playerSkinUrl);
     ResourceLocation resourceLocation =
         TextureManager.addRemoteTexture(textureModelKey, playerSkinUrl, textureDataFolder);
     if (resourceLocation != null) {
-      Logger.INSTANCE.info("{} Successfully loaded player texture for {}: {}", LOG_PREFIX, playerUUID, resourceLocation);
+      log.info(
+          "{} Successfully loaded player texture for {}: {}",
+          LOG_PREFIX,
+          playerUUID,
+          resourceLocation);
       textureCache.put(textureModelKey, resourceLocation);
       textureSkinTypeCache.put(textureModelKey, skinData.getSkinType());
       return resourceLocation;
     }
 
     // Log error if texture could not be loaded.
-    Logger.INSTANCE.error(
+    log.error(
         "{} Unable to load player {} texture {} from {}!",
         LOG_PREFIX,
         playerUUID,

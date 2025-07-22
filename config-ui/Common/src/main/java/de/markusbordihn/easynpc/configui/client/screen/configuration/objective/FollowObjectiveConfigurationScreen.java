@@ -68,7 +68,7 @@ public class FollowObjectiveConfigurationScreen<T extends ConfigurationMenu>
                 objectiveEntriesFirstColumn,
                 objectiveEntriesTop,
                 ObjectiveType.FOLLOW_OWNER.getObjectiveName(),
-                ownerData.getOwnerName(),
+                ownerData.getNPCOwnerName(),
                 objectiveDataSet.hasObjective(ObjectiveType.FOLLOW_OWNER),
                 checkbox -> {
                   ObjectiveDataEntry objectiveDataEntry =
@@ -110,7 +110,7 @@ public class FollowObjectiveConfigurationScreen<T extends ConfigurationMenu>
                         .addOrUpdateObjective(this.getEasyNPCUUID(), objectiveDataEntry);
                   }
                 }));
-    this.followOwnerCheckbox.active = ownerData.hasOwner();
+    this.followOwnerCheckbox.active = ownerData.hasNPCOwner();
     this.followPlayerName =
         this.addRenderableWidget(
             new TextField(this.font, objectiveEntriesSecondColumn, objectiveEntriesTop, 125));
